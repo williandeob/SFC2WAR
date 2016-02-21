@@ -1,0 +1,10 @@
+<listaDeConfiguracoes>
+<configuracao>
+    <host>itecgyn.com.br:21</host>
+    <usuario>itecgyn</usuario>
+    <senha>itec261002/*</senha>
+    <dirFornFtpReader>ftp-teste/escrita</dirFornFtpReader>
+    <dirFornFtpWriter>ftp-teste/leitura</dirFornFtpWriter>
+    <cnpj>1</cnpj>
+</configuracao>
+</listaDeConfiguracoes>
