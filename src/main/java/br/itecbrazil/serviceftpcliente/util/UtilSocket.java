@@ -15,15 +15,15 @@ import java.net.ServerSocket;
  */
 public class UtilSocket {
 
-    private static ServerSocket s;
+    private static ServerSocket socket;
 
     public static void verificarInstaciaEmExecucao() throws IOException {
-            s = new ServerSocket(9581);
+            socket = new ServerSocket(9581);
       
     }
     
     public static void liberarPortaParaNovasIntacias() throws IOException{       
-            s.close();      
+            socket.close();      
     }
 
 }

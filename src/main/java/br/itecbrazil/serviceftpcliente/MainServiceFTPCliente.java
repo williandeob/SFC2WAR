@@ -64,7 +64,7 @@ public class MainServiceFTPCliente {
      * @author willian
      * @param config
      */
-    private static void processarArquivoDeConfiguracao(File config) {
+    private static void processarArquivoDeConfiguracao(File config) throws ClassCastException{
         if (config == null || !config.canRead() || config.length() == 0) {
             chamarCadastroDeConfiguracaoFTP();
         } else {
@@ -84,16 +84,9 @@ public class MainServiceFTPCliente {
      * @author willian
      * @param config
      */
-    private static void carregarConfiguracao(File config) {
+    private static void carregarConfiguracao(File config) throws ClassCastException{
         ParseEngineConfig parseEngine = new ParseEngineConfig();
-        try{
-        configuracaoGeral = parseEngine.fromXMLConfiguracaoGeral(config);
-        }
-        catch(Exception Ex){
-             JOptionPane.showMessageDialog(null, "ERRO: Erro de inicialização, verifique o XML de configuração!"
-                    + "", "ALERT", ERROR_MESSAGE);
-             System.exit(0);
-        }
+        configuracaoGeral = parseEngine.fromXMLConfiguracaoGeral(config);            
     }
 
     /**
@@ -125,6 +118,9 @@ public class MainServiceFTPCliente {
         } catch (IOException ex) {
             JOptionPane.showMessageDialog(null, "ERRO: O Programa já está em excecução ou a porta 9581 está ocupada"
                     + "", "ALERT", ERROR_MESSAGE);
+        } catch(ClassCastException ex){
+             JOptionPane.showMessageDialog(null, "ERRO: Erro de inicialização, verifique o XML de configuração!"
+                    + "", "ALERT", ERROR_MESSAGE); 
         }
 
     }
