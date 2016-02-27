@@ -49,7 +49,7 @@ public class ControllerViewHome {
     public void rodarServicoEmBackGround() {
         try {
 
-            SystemTray tray = SystemTray.getSystemTray();
+            final SystemTray tray = SystemTray.getSystemTray();
             ImageIcon img = new ImageIcon(getClass().getResource("/itecBrazil.png"));
             MouseListener mouseListener;
             mouseListener = new MouseListener() {
@@ -89,10 +89,11 @@ public class ControllerViewHome {
                     try {
                         UtilSocket.liberarPortaParaNovasIntacias();
                     } catch (IOException ex) {
-                        JOptionPane.showMessageDialog(null, "ERRO: Ocorreu um erro inesperado ao fechar o programa"
+                        JOptionPane.showMessageDialog(null, "ERRO: Ocorreu um erro inesperado ao fechar o programa, verifique a porta 9581"
                                 + "", "ALERT", ERROR_MESSAGE);
                     }
-                    System.exit(0);
+                        tray.remove(iconItec);
+                    
                 }
             };
 

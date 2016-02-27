@@ -71,7 +71,6 @@ public class ThreadRetorno implements Runnable {
                     getProcessaRetorno().logout();
                 } catch (Exception ex) {
                     loggerExceptionRetorno.info(Thread.currentThread().getName()+" cliente "+ getConfig().getCnpj()+" "+ex);
-                    ex.printStackTrace();
                 }
             }
         }
@@ -90,8 +89,7 @@ public class ThreadRetorno implements Runnable {
             
             return true;
         } catch (Exception ex) {
-            loggerExceptionRetorno.info(Thread.currentThread().getName()+" cliente "+ getConfig().getCnpj()+" "+ex);           
-            ex.printStackTrace();
+            loggerExceptionRetorno.info(Thread.currentThread().getName()+" cliente "+ getConfig().getCnpj()+" "+ex);
         }
        
         logger.error("Thread " + Thread.currentThread().getName() + " não se conectou ao FTP do cliente " + getConfig().getCnpj());
@@ -127,7 +125,6 @@ public class ThreadRetorno implements Runnable {
                 return listaFTPFileReturn;
             } catch (Exception ex) {
                 loggerExceptionRetorno.info(Thread.currentThread().getName()+" cliente "+ getConfig().getCnpj()+" "+ex);
-                ex.printStackTrace();
             }
         }
         
@@ -186,7 +183,6 @@ public class ThreadRetorno implements Runnable {
 
                 } catch (Exception ex) {
                    loggerExceptionRetorno.info(Thread.currentThread().getName()+" cliente "+ getConfig().getCnpj()+" "+ex);
-                   ex.printStackTrace();
                 } finally {
                     if (ops != null) {
                         try {
@@ -220,7 +216,6 @@ public class ThreadRetorno implements Runnable {
                     }
                 } catch (Exception ex) {
                    loggerExceptionRetorno.info(Thread.currentThread().getName()+" cliente "+ getConfig().getCnpj()+" "+ex);
-                   ex.printStackTrace();
                 }
             }
 

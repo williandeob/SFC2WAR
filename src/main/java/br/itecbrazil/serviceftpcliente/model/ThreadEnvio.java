@@ -83,7 +83,6 @@ public class ThreadEnvio implements Runnable {
                         getProcessaEnvio().logout();
                     } catch (Exception ex) {
                         loggerExceptionEnvio.info(Thread.currentThread().getName() + " cliente " + getConfig().getCnpj() + " erro logout - " + ex);
-                        ex.printStackTrace();
                     }
                 }
 
@@ -130,7 +129,6 @@ public class ThreadEnvio implements Runnable {
         } catch (Exception ex) {
             logger.info("Thread " + Thread.currentThread().getName() + " não se conectou ao FTP do cliente " + getConfig().getCnpj());
             loggerExceptionEnvio.info(Thread.currentThread().getName() + " cliente " + getConfig().getCnpj() + " " + ex);
-            ex.printStackTrace();
         }
 
         return false;
@@ -155,11 +153,9 @@ public class ThreadEnvio implements Runnable {
 
                 } catch (FileNotFoundException ex) {
                     loggerExceptionEnvio.info(Thread.currentThread().getName() + " cliente " + getConfig().getCnpj() + " " + ex);
-                    ex.printStackTrace();
                     return false;
                 } catch (IOException ex) {
                     loggerExceptionEnvio.info(Thread.currentThread().getName() + " cliente " + getConfig().getCnpj() + " " + ex);
-                    ex.printStackTrace();
                     return false;
                 } finally {
                     try {
@@ -181,7 +177,6 @@ public class ThreadEnvio implements Runnable {
                         }
                     } catch (Exception ex) {
                         loggerExceptionEnvio.info(Thread.currentThread().getName() + " cliente " + getConfig().getCnpj() + " " + ex);
-                        ex.printStackTrace();
                     }
                 }
             }
