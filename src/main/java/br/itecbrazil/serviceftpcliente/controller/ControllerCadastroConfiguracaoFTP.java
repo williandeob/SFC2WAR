@@ -11,8 +11,12 @@ import br.itecbrazil.serviceftpcliente.model.ParseEngineConfig;
 import br.itecbrazil.serviceftpcliente.util.UtilConfig;
 import br.itecbrazil.serviceftpcliente.util.UtilDiretorios;
 import br.itecbrazil.serviceftpcliente.view.ViewCadastroDeConfiguracaoFTP;
+import java.awt.HeadlessException;
 import java.io.File;
+import java.io.IOException;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import static javax.swing.JOptionPane.INFORMATION_MESSAGE;
@@ -140,16 +144,23 @@ public class ControllerCadastroConfiguracaoFTP {
             MainServiceFTPCliente.configuracaoGeral.setDiretorioDeEnvio(diretorioEnvio);
             MainServiceFTPCliente.configuracaoGeral.setDiretorioDeRetorno(diretorioRetorno);
             MainServiceFTPCliente.configuracaoGeral.setListaDeConfiguracoes(listaDeConfiguracaoAux);
-            if(parseEngine.toXMLArquivoDeConfiguracaoGeral(MainServiceFTPCliente.configuracaoGeral)){
-                 JOptionPane.showMessageDialog(getView(), "CONFIRM: Configuração realizada com Sucesso"
+            try{
+                parseEngine.toXMLArquivoDeConfiguracaoGeral(MainServiceFTPCliente.configuracaoGeral);
+                    JOptionPane.showMessageDialog(getView(), "CONFIRM: Configuração realizada com Sucesso"
                     + "", "ALERT", INFORMATION_MESSAGE); 
                
-                 getView().dispose();
+                    getView().dispose();
                  
-            }else{
-                 JOptionPane.showMessageDialog(getView(), "ALERT: Não foi possivel carregar as informações de configuração"
-                    + "", "ALERT", WARNING_MESSAGE);
-                 UtilConfig.limparConfiguracao();
+            }catch(IOException ex){
+                Logger.getLogger(ControllerCadastroConfiguracaoFTP.class.getName()).log(Level.SEVERE, null, ex);
+                JOptionPane.showMessageDialog(getView(), "ALERT: Não foi possivel carregar as informações de configuração"
+                    + " arquivo não encontrado", "ALERT", WARNING_MESSAGE);
+                UtilConfig.limparConfiguracao();
+            }catch (HeadlessException ex) {
+                Logger.getLogger(ControllerCadastroConfiguracaoFTP.class.getName()).log(Level.SEVERE, null, ex);
+                JOptionPane.showMessageDialog(getView(), "ALERT: Não foi possivel carregar as informações de configuração"
+                        + " ocorreu falha na escrita do arquivo config.xml", "ALERT", WARNING_MESSAGE);
+                UtilConfig.limparConfiguracao();
             }
         }
     }

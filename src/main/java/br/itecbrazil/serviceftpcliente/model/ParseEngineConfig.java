@@ -48,13 +48,9 @@ public class ParseEngineConfig {
      * EnumDiretorio.Configuracao/EnumsAqruivos.Configuracao, caso não seja
      * possivel essa serialização o metodo retorna false.
      */
-    public boolean toXMLArquivoDeConfiguracaoGeral(ConfiguracaoGeral configuracaoGeral) {
+    public void toXMLArquivoDeConfiguracaoGeral(ConfiguracaoGeral configuracaoGeral) throws FileNotFoundException, IOException {
         FileOutputStream fops = null;
-        try {
-            if (configuracaoGeral == null) {
-                return false;
-            }
-           
+
             File config = new File(EnumDiretorio.Configuracao.getDiretorio()
                     .concat(File.separator).concat(EnumArquivos.Configuracao.getNomeDoArquivo()));
 
@@ -63,20 +59,8 @@ public class ParseEngineConfig {
             xStream.alias("listaDeConfiguracoes", List.class);
             xStream.alias("configuracao", Config.class);
             xStream.toXML(configuracaoGeral, fops);
-            return true;
-        } catch (FileNotFoundException ex) {
-            Logger.getLogger(ParseEngineConfig.class.getName()).log(Level.SEVERE, null, ex);
-            return false;
-        } finally {
-            try {
-                if (fops != null) {
-                    fops.close();
-                }
-            } catch (IOException ex) {
-                Logger.getLogger(ParseEngineConfig.class.getName()).log(Level.SEVERE, null, ex);
-                return false;
-            }
-        }
+
+            fops.close();
     }
 
     /**

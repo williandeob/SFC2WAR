@@ -9,6 +9,9 @@ import br.itecbrazil.serviceftpcliente.MainServiceFTPCliente;
 import br.itecbrazil.serviceftpcliente.model.ParseEngineConfig;
 import br.itecbrazil.serviceftpcliente.model.ScheduleEngine;
 import br.itecbrazil.serviceftpcliente.view.PanelConfigLocalDiretorios;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import static javax.swing.JOptionPane.WARNING_MESSAGE;
@@ -69,8 +72,15 @@ public class ControllerPanelConfigLocalDiretorios {
         }
 
         ParseEngineConfig parse = new ParseEngineConfig();
-        parse.toXMLArquivoDeConfiguracaoGeral(MainServiceFTPCliente.configuracaoGeral);
-        ScheduleEngine.prepararEIniciarScheduler();
+        try {
+            parse.toXMLArquivoDeConfiguracaoGeral(MainServiceFTPCliente.configuracaoGeral);
+        } catch (IOException ex) {
+            JOptionPane.showMessageDialog(getView(), "ALERT: Não foi possivel carregar as informações de configuração"
+                    + " ocorreu falha na escrita do arquivo config.xml", "ALERT", WARNING_MESSAGE);
+            Logger.getLogger(ControllerPanelConfigLocalDiretorios.class.getName()).log(Level.SEVERE, null, ex);
+        }finally{
+            ScheduleEngine.prepararEIniciarScheduler();
+        }
     }
 
 }

@@ -14,7 +14,10 @@ import br.itecbrazil.serviceftpcliente.view.CellRenderer;
 import br.itecbrazil.serviceftpcliente.view.PanelConfigServidoresFTPs;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.io.IOException;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import static javax.swing.JOptionPane.INFORMATION_MESSAGE;
@@ -86,14 +89,18 @@ public class ControllerPanelConfigServidoresFTPs {
         if (configASerRemovido != null) {
             ScheduleEngine.pararScheduler();
             MainServiceFTPCliente.configuracaoGeral.getListaDeConfiguracoes().remove(configASerRemovido);
-            if (parseEngine.toXMLArquivoDeConfiguracaoGeral(MainServiceFTPCliente.configuracaoGeral)) {
+            try {
+                parseEngine.toXMLArquivoDeConfiguracaoGeral(MainServiceFTPCliente.configuracaoGeral);
                 getView().getModeloDaTabelaDeConfigFTP().removeRow(posicaoDaLinha);
-                ScheduleEngine.prepararEIniciarScheduler();
                 JOptionPane.showMessageDialog(getView(), "CONFIRM: Exclusão realizada com Sucesso"
                         + "", "ALERT", INFORMATION_MESSAGE);
-            } else {
-                JOptionPane.showMessageDialog(getView(), "INFO: Ocorreu um erro ao excluir o registro", "ALERT", WARNING_MESSAGE);
-            }
+            } catch (IOException ex) {
+                Logger.getLogger(ControllerPanelConfigServidoresFTPs.class.getName()).log(Level.SEVERE, null, ex);
+                JOptionPane.showMessageDialog(getView(), "INFO: Ocorreu um erro ao excluir o registro"
+                        + " ocorreu falha na escrita do arquivo config.xml", "ALERT", WARNING_MESSAGE);
+            }finally{
+                ScheduleEngine.prepararEIniciarScheduler();
+            }  
         } else {
             JOptionPane.showMessageDialog(getView(), "INFO: Não é possivel excluir configuracao sem CNPJ", "ALERT", WARNING_MESSAGE);
         }
@@ -134,21 +141,36 @@ public class ControllerPanelConfigServidoresFTPs {
 
     private void processoDeAdicionarNovasConfiguracoes(List<Config> listaDeNovasConfiguracoes) {
         ScheduleEngine.pararScheduler();
-        parseEngine.toXMLArquivoDeConfiguracaoGeral(MainServiceFTPCliente.configuracaoGeral);
-        for (Config config : listaDeNovasConfiguracoes) {
-            getView().getModeloDaTabelaDeConfigFTP().addRow(new Object[]{config.getHost(), config.getCnpj(),
-                config.getDirFornFtpReader(), config.getDirFornFtpWriter()});
+        try {
+            parseEngine.toXMLArquivoDeConfiguracaoGeral(MainServiceFTPCliente.configuracaoGeral);
+            for (Config config : listaDeNovasConfiguracoes) {
+                getView().getModeloDaTabelaDeConfigFTP().addRow(new Object[]{config.getHost(), config.getCnpj(),
+                    config.getDirFornFtpReader(), config.getDirFornFtpWriter()});    
+            }
+        } catch (IOException ex) {
+            Logger.getLogger(ControllerPanelConfigServidoresFTPs.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(getView(), "ALERT: Não foi possivel carregar as informações de configuração"
+                    + " ocorreu falha na escrita do arquivo config.xml", "ALERT", WARNING_MESSAGE);
+        } finally{
             ScheduleEngine.prepararEIniciarScheduler();
         }
+        
     }
 
     public void limparConfiguracoes() {
         ScheduleEngine.pararScheduler();
         MainServiceFTPCliente.configuracaoGeral.getListaDeConfiguracoes().clear();
-        parseEngine.toXMLArquivoDeConfiguracaoGeral(MainServiceFTPCliente.configuracaoGeral);
-        while (getView().getModeloDaTabelaDeConfigFTP().getRowCount() > 0) {
-            getView().getModeloDaTabelaDeConfigFTP().removeRow(0);
+        try {
+            parseEngine.toXMLArquivoDeConfiguracaoGeral(MainServiceFTPCliente.configuracaoGeral);
+            while (getView().getModeloDaTabelaDeConfigFTP().getRowCount() > 0) {
+                getView().getModeloDaTabelaDeConfigFTP().removeRow(0);
+            }
+        } catch (IOException ex) {
+            Logger.getLogger(ControllerPanelConfigServidoresFTPs.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(getView(), "ALERT: Não foi possivel carregar as informações de configuração"
+                    + " ocorreu falha na escrita do arquivo config.xml", "ALERT", WARNING_MESSAGE);
+        } finally{
+            ScheduleEngine.prepararEIniciarScheduler();
         }
-        ScheduleEngine.prepararEIniciarScheduler();
     }
 }
