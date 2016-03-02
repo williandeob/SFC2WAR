@@ -135,7 +135,7 @@ public class PanelConfigServidoresFTPs extends javax.swing.JPanel {
 
     private void jTableConfigFTPMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableConfigFTPMouseClicked
         if (getjTableConfigFTP().columnAtPoint(evt.getPoint()) == 4) {
-            Object cnpjDaLinhaSelecionada = (getjTableConfigFTP().getValueAt(getjTableConfigFTP().getSelectedRow(), 1));
+            Object cnpjDaLinhaSelecionada = getjTableConfigFTP().getValueAt(getjTableConfigFTP().getSelectedRow(), 1);
             int linhaSelecionada = getjTableConfigFTP().getSelectedRow();
             getController().dispararAcaoDoController(getjTableConfigFTP().columnAtPoint(evt.getPoint()), linhaSelecionada, cnpjDaLinhaSelecionada);
         }

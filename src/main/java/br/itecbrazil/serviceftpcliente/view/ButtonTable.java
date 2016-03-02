@@ -23,8 +23,8 @@ public class ButtonTable extends JButton implements TableCellRenderer {
         return rotulo;
     }
 
-    public void setRotulo(String Rotulo) {
-        this.rotulo = Rotulo;
+    public void setRotulo(String rotulo) {
+        this.rotulo = rotulo;
     }
 
     public ButtonTable(String rotulo) {

@@ -191,8 +191,7 @@ public class ThreadRetorno implements Runnable {
 
                         } catch (Exception ex) {
                             loggerExceptionRetorno.info(Thread.currentThread().getName()+" cliente "+ getConfig().getCnpj()+" "+ex);
-                           // java.util.logging.Logger.getLogger(ThreadRetorno.class.getName()).log(Level.SEVERE, null, ex);
-                        }
+                         }
                     }
                 }
             }

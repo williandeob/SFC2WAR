@@ -13,6 +13,9 @@ import br.itecbrazil.serviceftpcliente.MainServiceFTPCliente;
  */
 public class ScheduleEngine {
 
+    private ScheduleEngine() {
+
+    }
     private static Schedule envio;
     private static Schedule retorno;
 
@@ -32,13 +35,13 @@ public class ScheduleEngine {
         ScheduleEngine.retorno = retorno;
     }
 
-    private static void SchedulerFactory() {
+    private static void schedulerFactory() {
         envio = new ScheduleEnvio(MainServiceFTPCliente.getConfiguracaoGeral().getListaDeConfiguracoes().size());
         retorno = new ScheduleRetorno(MainServiceFTPCliente.getConfiguracaoGeral().getListaDeConfiguracoes().size());
     }
 
     public static void prepararEIniciarScheduler() {
-        SchedulerFactory();
+        schedulerFactory();
         getEnvio().execute();
         getRetorno().execute();
     }

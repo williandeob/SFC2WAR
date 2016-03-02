@@ -14,7 +14,7 @@ import javax.swing.JTextField;
  */
 public class PanelConfigLocalDiretorios extends javax.swing.JPanel {
 
-    public ControllerPanelConfigLocalDiretorios controller;
+    private ControllerPanelConfigLocalDiretorios controller;
 
     /**
      * Creates new form PanelConfigLocalDiretorios
