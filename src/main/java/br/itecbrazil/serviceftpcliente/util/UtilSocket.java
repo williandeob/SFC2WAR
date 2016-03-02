@@ -8,22 +8,24 @@ package br.itecbrazil.serviceftpcliente.util;
 import java.io.IOException;
 import java.net.ServerSocket;
 
-
 /**
  *
  * @author itec-desenv-willian
  */
 public class UtilSocket {
 
+    private UtilSocket() {
+
+    }
     private static ServerSocket socket;
 
     public static void verificarInstaciaEmExecucao() throws IOException {
-            socket = new ServerSocket(9581);
-      
+        socket = new ServerSocket(9581);
+
     }
-    
-    public static void liberarPortaParaNovasIntacias() throws IOException{       
-            socket.close();      
+
+    public static void liberarPortaParaNovasIntacias() throws IOException {
+        socket.close();
     }
 
 }

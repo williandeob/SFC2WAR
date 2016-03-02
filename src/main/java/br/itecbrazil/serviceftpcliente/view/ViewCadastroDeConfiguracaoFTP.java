@@ -19,7 +19,6 @@ import javax.swing.KeyStroke;
  */
 public class ViewCadastroDeConfiguracaoFTP extends javax.swing.JDialog {
 
-    
     ControllerCadastroConfiguracaoFTP controllerCadastroConfiguracaoFTP;
     /**
      * A return status code - returned if Cancel button has been pressed
@@ -281,5 +280,4 @@ public class ViewCadastroDeConfiguracaoFTP extends javax.swing.JDialog {
     private javax.swing.JButton okButton;
     // End of variables declaration//GEN-END:variables
 
-    
 }

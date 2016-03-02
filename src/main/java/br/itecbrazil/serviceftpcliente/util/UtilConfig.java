@@ -19,8 +19,7 @@ import java.util.List;
  */
 public class UtilConfig {
 
-    public UtilConfig() {
-
+    private UtilConfig() {
     }
 
     /**

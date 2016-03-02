@@ -17,6 +17,10 @@ import java.util.Collection;
  */
 public class UtilDiretorios {
 
+    private UtilDiretorios() {
+
+    }
+
     /**
      * Metodo que retorna o diretorio que armazena o arquivo de configuracao.
      *

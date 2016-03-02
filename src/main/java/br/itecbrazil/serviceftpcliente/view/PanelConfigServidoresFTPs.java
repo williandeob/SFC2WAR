@@ -15,7 +15,7 @@ import javax.swing.table.DefaultTableModel;
  */
 public class PanelConfigServidoresFTPs extends javax.swing.JPanel {
 
-    public DefaultTableModel modeloDaTabelaDeConfigFTP;
+    private DefaultTableModel modeloDaTabelaDeConfigFTP;
     private ControllerPanelConfigServidoresFTPs controller;
 
     /**
