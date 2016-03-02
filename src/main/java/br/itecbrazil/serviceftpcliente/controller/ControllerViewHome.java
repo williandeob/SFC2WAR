@@ -19,6 +19,8 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import static javax.swing.JFrame.EXIT_ON_CLOSE;
 import javax.swing.JOptionPane;
@@ -68,13 +70,12 @@ public class ControllerViewHome {
 
             tray.add(iconItec);
 
-        } catch (HeadlessException ex) {
-            JOptionPane.showMessageDialog(getViewHome(), "INFO: Sistema não suporta executar o serviço em background", "ALERT", WARNING_MESSAGE);
+        } catch (HeadlessException|AWTException ex) {
+            String mensagemInfo = "INFO: Sistema não suporta executar o serviço em background";
+            Logger.getAnonymousLogger().log(Level.SEVERE, mensagemInfo, ex);
+            JOptionPane.showMessageDialog(getViewHome(), mensagemInfo, "ALERT", WARNING_MESSAGE);
             getViewHome().setDefaultCloseOperation(EXIT_ON_CLOSE);
-        } catch (AWTException ex) {
-            JOptionPane.showMessageDialog(getViewHome(), "INFO: Sistema não suporta executar o serviço em background", "ALERT", WARNING_MESSAGE);
-            getViewHome().setDefaultCloseOperation(EXIT_ON_CLOSE);
-        }
+        } 
     }
 
     private MouseListener configuraMouseListener() {
@@ -110,7 +111,7 @@ public class ControllerViewHome {
     }
 
     private ActionListener configuraExitListener(final SystemTray tray) {
-        ActionListener exitListener = new ActionListener() {
+        return new ActionListener() {
 
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -127,23 +128,20 @@ public class ControllerViewHome {
             }
         };
 
-        return exitListener;
-
     }
 
     private ActionListener configuraDisplayListener() {
-        ActionListener displayListener = new ActionListener() {
+        return new ActionListener() {
 
             @Override
             public void actionPerformed(ActionEvent e) {
                 getViewHome().setVisible(true);
             }
         };
-        return displayListener;
     }
 
     private ActionListener configuraActionListener() {
-        ActionListener actionListener = new ActionListener() {
+        return new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 iconItec.displayMessage("Action Event",
@@ -151,7 +149,6 @@ public class ControllerViewHome {
                         TrayIcon.MessageType.INFO);
             }
         };
-        return actionListener;
     }
 
 }
