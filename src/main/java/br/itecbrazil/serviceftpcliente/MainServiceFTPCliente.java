@@ -74,7 +74,7 @@ public class MainServiceFTPCliente {
      * @author willian
      * @param config
      */
-    private static void processarArquivoDeConfiguracao(File config) throws ClassCastException{
+    private static void processarArquivoDeConfiguracao(File config){
         if (config == null || !config.canRead() || config.length() == 0) {
             chamarCadastroDeConfiguracaoFTP();
         } else {
@@ -94,7 +94,7 @@ public class MainServiceFTPCliente {
      * @author willian
      * @param config
      */
-    private static void carregarConfiguracao(File config) throws ClassCastException{
+    private static void carregarConfiguracao(File config){
         ParseEngineConfig parseEngine = new ParseEngineConfig();
         configuracaoGeral = parseEngine.fromXMLConfiguracaoGeral(config);            
     }

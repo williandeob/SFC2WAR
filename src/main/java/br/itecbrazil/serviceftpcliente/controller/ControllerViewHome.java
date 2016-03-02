@@ -70,12 +70,12 @@ public class ControllerViewHome {
 
             tray.add(iconItec);
 
-        } catch (HeadlessException|AWTException ex) {
+        } catch (HeadlessException | AWTException ex) {
             String mensagemInfo = "INFO: Sistema não suporta executar o serviço em background";
-            Logger.getAnonymousLogger().log(Level.SEVERE, mensagemInfo, ex);
+            Logger.getAnonymousLogger().log(Level.INFO, mensagemInfo, ex);
             JOptionPane.showMessageDialog(getViewHome(), mensagemInfo, "ALERT", WARNING_MESSAGE);
             getViewHome().setDefaultCloseOperation(EXIT_ON_CLOSE);
-        } 
+        }
     }
 
     private MouseListener configuraMouseListener() {
@@ -120,8 +120,9 @@ public class ControllerViewHome {
                 try {
                     UtilSocket.liberarPortaParaNovasIntacias();
                 } catch (IOException ex) {
-                    JOptionPane.showMessageDialog(null, "ERRO: Ocorreu um erro inesperado ao fechar o programa, verifique a porta 9581"
-                            + "", "ALERT", ERROR_MESSAGE);
+                    String mensagemInfo = "ERRO: Ocorreu um erro inesperado ao fechar o programa, verifique a porta 9581";
+                    Logger.getAnonymousLogger().log(Level.SEVERE, mensagemInfo, ex);
+                    JOptionPane.showMessageDialog(null, mensagemInfo, "ALERT", ERROR_MESSAGE);
                 }
                 tray.remove(iconItec);
 
