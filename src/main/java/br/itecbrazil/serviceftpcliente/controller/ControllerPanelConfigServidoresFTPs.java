@@ -109,7 +109,8 @@ public class ControllerPanelConfigServidoresFTPs {
 
     public void adicionarConfiguracoesDeFTP() {
         int returnVal;
-        List<Config> listaDeNovasConfiguracoes = null;
+        List<Config> listaDeNovasConfiguracoes;
+        listaDeNovasConfiguracoes = null;
         JFileChooser fc = new JFileChooser();
         fc.setFileSelectionMode(JFileChooser.FILES_ONLY);
         returnVal = fc.showOpenDialog(getView());

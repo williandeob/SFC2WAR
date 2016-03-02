@@ -51,82 +51,20 @@ public class ControllerViewHome {
 
             final SystemTray tray = SystemTray.getSystemTray();
             ImageIcon img = new ImageIcon(getClass().getResource("/itecBrazil.png"));
-            MouseListener mouseListener;
-            mouseListener = new MouseListener() {
-
-                @Override
-                public void mouseClicked(MouseEvent e) {
-                    System.out.println("Tray Icon - Mouse clicked!");
-                }
-
-                @Override
-                public void mouseEntered(MouseEvent e) {
-                    System.out.println("Evento mouseEntered");
-                }
-
-                @Override
-                public void mouseExited(MouseEvent e) {
-                    System.out.println("Evento mouseExited");
-                }
-
-                @Override
-                public void mousePressed(MouseEvent e) {
-                    System.out.println("Evento mousePressed");
-                }
-
-                @Override
-                public void mouseReleased(MouseEvent e) {
-                    System.out.println("Evento mouseReleased!");
-                }
-            };
-
-            ActionListener exitListener = new ActionListener() {
-
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    ScheduleEngine.pararScheduler();
-                    getViewHome().dispose();
-                    try {
-                        UtilSocket.liberarPortaParaNovasIntacias();
-                    } catch (IOException ex) {
-                        JOptionPane.showMessageDialog(null, "ERRO: Ocorreu um erro inesperado ao fechar o programa, verifique a porta 9581"
-                                + "", "ALERT", ERROR_MESSAGE);
-                    }
-                        tray.remove(iconItec);
-                    
-                }
-            };
-
-            ActionListener displayListener = new ActionListener() {
-
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    getViewHome().setVisible(true);
-                }
-            };
 
             PopupMenu popup = new PopupMenu();
             MenuItem exitItem = new MenuItem("Sair do SFC");
-            exitItem.addActionListener(exitListener);
+            exitItem.addActionListener(configuraExitListener(tray));
             MenuItem diplayItem = new MenuItem("Exibir view SFC");
-            diplayItem.addActionListener(displayListener);
+            diplayItem.addActionListener(configuraDisplayListener());
             popup.add(exitItem);
             popup.add(diplayItem);
 
             iconItec = new TrayIcon(img.getImage(), "ITECBRAZIL - SFC", popup);
 
-            ActionListener actionListener = new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    iconItec.displayMessage("Action Event",
-                            "An Action Event Has Been Peformed!",
-                            TrayIcon.MessageType.INFO);
-                }
-            };
-
             iconItec.setImageAutoSize(true);
-            iconItec.addActionListener(actionListener);
-            iconItec.addMouseListener(mouseListener);
+            iconItec.addActionListener(configuraActionListener());
+            iconItec.addMouseListener(configuraMouseListener());
 
             tray.add(iconItec);
 
@@ -137,6 +75,83 @@ public class ControllerViewHome {
             JOptionPane.showMessageDialog(getViewHome(), "INFO: Sistema não suporta executar o serviço em background", "ALERT", WARNING_MESSAGE);
             getViewHome().setDefaultCloseOperation(EXIT_ON_CLOSE);
         }
+    }
+
+    private MouseListener configuraMouseListener() {
+        MouseListener mouseListener;
+        mouseListener = new MouseListener() {
+
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                System.out.println("Tray Icon - Mouse clicked!");
+            }
+
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                System.out.println("Evento mouseEntered");
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+                System.out.println("Evento mouseExited");
+            }
+
+            @Override
+            public void mousePressed(MouseEvent e) {
+                System.out.println("Evento mousePressed");
+            }
+
+            @Override
+            public void mouseReleased(MouseEvent e) {
+                System.out.println("Evento mouseReleased!");
+            }
+        };
+        return mouseListener;
+    }
+
+    private ActionListener configuraExitListener(final SystemTray tray) {
+        ActionListener exitListener = new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                ScheduleEngine.pararScheduler();
+                getViewHome().dispose();
+                try {
+                    UtilSocket.liberarPortaParaNovasIntacias();
+                } catch (IOException ex) {
+                    JOptionPane.showMessageDialog(null, "ERRO: Ocorreu um erro inesperado ao fechar o programa, verifique a porta 9581"
+                            + "", "ALERT", ERROR_MESSAGE);
+                }
+                tray.remove(iconItec);
+
+            }
+        };
+
+        return exitListener;
+
+    }
+
+    private ActionListener configuraDisplayListener() {
+        ActionListener displayListener = new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                getViewHome().setVisible(true);
+            }
+        };
+        return displayListener;
+    }
+
+    private ActionListener configuraActionListener() {
+        ActionListener actionListener = new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                iconItec.displayMessage("Action Event",
+                        "An Action Event Has Been Peformed!",
+                        TrayIcon.MessageType.INFO);
+            }
+        };
+        return actionListener;
     }
 
 }
