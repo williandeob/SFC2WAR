@@ -141,11 +141,11 @@ public class ControllerCadastroConfiguracaoFTP {
                 return;
             }
             
-            MainServiceFTPCliente.configuracaoGeral.setDiretorioDeEnvio(diretorioEnvio);
-            MainServiceFTPCliente.configuracaoGeral.setDiretorioDeRetorno(diretorioRetorno);
-            MainServiceFTPCliente.configuracaoGeral.setListaDeConfiguracoes(listaDeConfiguracaoAux);
+            MainServiceFTPCliente.getConfiguracaoGeral().setDiretorioDeEnvio(diretorioEnvio);
+            MainServiceFTPCliente.getConfiguracaoGeral().setDiretorioDeRetorno(diretorioRetorno);
+            MainServiceFTPCliente.getConfiguracaoGeral().setListaDeConfiguracoes(listaDeConfiguracaoAux);
             try{
-                parseEngine.toXMLArquivoDeConfiguracaoGeral(MainServiceFTPCliente.configuracaoGeral);
+                parseEngine.toXMLArquivoDeConfiguracaoGeral(MainServiceFTPCliente.getConfiguracaoGeral());
                     JOptionPane.showMessageDialog(getView(), "CONFIRM: Configuração realizada com Sucesso"
                     + "", "ALERT", INFORMATION_MESSAGE); 
                

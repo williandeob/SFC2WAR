@@ -28,9 +28,9 @@ public class UtilConfig {
      */
     public static void limparConfiguracao() {
         List<Config> listaVazia = new ArrayList<Config>();
-        MainServiceFTPCliente.configuracaoGeral.setDiretorioDeEnvio("");
-        MainServiceFTPCliente.configuracaoGeral.setDiretorioDeRetorno("");
-        MainServiceFTPCliente.configuracaoGeral.setListaDeConfiguracoes(listaVazia);
+        MainServiceFTPCliente.getConfiguracaoGeral().setDiretorioDeEnvio("");
+        MainServiceFTPCliente.getConfiguracaoGeral().setDiretorioDeRetorno("");
+        MainServiceFTPCliente.getConfiguracaoGeral().setListaDeConfiguracoes(listaVazia);
 
         File diretorioConfiguracao = UtilDiretorios.getDiretorioDeConfiguracao();
         File[] arquivoEncontradosNoDiretorioDeConfiguracao = diretorioConfiguracao.listFiles(new FilenameFilter() {

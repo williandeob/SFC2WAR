@@ -26,8 +26,8 @@ public class ThreadRetorno implements Runnable {
 
     private ProcessaFTP processaRetorno;
     private final Config config;
-    public static Logger logger = Logger.getLogger("BuscaFTP");
-    public static Logger loggerExceptionRetorno = Logger.getLogger("BuscaFTPException");
+    private static Logger logger = Logger.getLogger("BuscaFTP");
+    private static Logger loggerExceptionRetorno = Logger.getLogger("BuscaFTPException");
     private ControllerDashBoardEnvioRetorno controller;
 
     public ThreadRetorno(Config config, ControllerDashBoardEnvioRetorno controller) {
@@ -63,7 +63,7 @@ public class ThreadRetorno implements Runnable {
             if (conectarFTP()) {
                 listaDeFTPArquivosCarregados = buscarArquivosNoDiretorioDoFTP(getConfig().getDirFornFtpWriter());
                 if (listaDeFTPArquivosCarregados != null && !listaDeFTPArquivosCarregados.isEmpty()) {
-                    if (escreverArquivosNoDiretorioPassadoPorParametro(listaDeFTPArquivosCarregados, MainServiceFTPCliente.configuracaoGeral.getDiretorioDeRetorno())) {
+                    if (escreverArquivosNoDiretorioPassadoPorParametro(listaDeFTPArquivosCarregados, MainServiceFTPCliente.getConfiguracaoGeral().getDiretorioDeRetorno())) {
                         deletarArquivosJaCarregadosDoDiretorioDoFTP(listaDeFTPArquivosCarregados);
                     }
                 }

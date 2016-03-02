@@ -12,7 +12,7 @@ package br.itecbrazil.serviceftpcliente.enums;
 public enum EnumEnvioRetorno {
 
     Envio(0), Retorno(1);
-    public int valor;
+    private int valor;
 
     private EnumEnvioRetorno(int valor) {
         this.valor = valor;

@@ -38,8 +38,8 @@ public class ControllerPanelConfigLocalDiretorios {
     }
 
     public void preencherPathDiretorios() {
-        getView().getjTextFieldDirEnvio().setText(MainServiceFTPCliente.configuracaoGeral.getDiretorioDeEnvio());
-        getView().getjTextFieldDirRetorno().setText(MainServiceFTPCliente.configuracaoGeral.getDiretorioDeRetorno());
+        getView().getjTextFieldDirEnvio().setText(MainServiceFTPCliente.getConfiguracaoGeral().getDiretorioDeEnvio());
+        getView().getjTextFieldDirRetorno().setText(MainServiceFTPCliente.getConfiguracaoGeral().getDiretorioDeRetorno());
     }
 
     public void alterarPathDiretorios(JTextField diretorio) {
@@ -59,21 +59,21 @@ public class ControllerPanelConfigLocalDiretorios {
     }
 
     private boolean compararNovoDiretorioComDiretoriosAnteriores(String novoDiretorio) {
-        return (novoDiretorio.equals(getView().getjTextFieldDirEnvio().getText())
-                || novoDiretorio.equals(getView().getjTextFieldDirRetorno().getText()));
+        return novoDiretorio.equals(getView().getjTextFieldDirEnvio().getText())
+                || novoDiretorio.equals(getView().getjTextFieldDirRetorno().getText());
 
     }
 
-    private void processarAlteracao(JTextField diretorio) {
-        if (diretorio.getName().equals("jTextFieldDirEnvio")) {
-            MainServiceFTPCliente.configuracaoGeral.setDiretorioDeEnvio(diretorio.getText());
+    private void processarAlteracao(JTextField diretorio) {        
+        if (("jTextFieldDirEnvio").equals(diretorio.getName())){
+            MainServiceFTPCliente.getConfiguracaoGeral().setDiretorioDeEnvio(diretorio.getText());
         } else {
-            MainServiceFTPCliente.configuracaoGeral.setDiretorioDeRetorno(diretorio.getText());
+            MainServiceFTPCliente.getConfiguracaoGeral().setDiretorioDeRetorno(diretorio.getText());
         }
 
         ParseEngineConfig parse = new ParseEngineConfig();
         try {
-            parse.toXMLArquivoDeConfiguracaoGeral(MainServiceFTPCliente.configuracaoGeral);
+            parse.toXMLArquivoDeConfiguracaoGeral(MainServiceFTPCliente.getConfiguracaoGeral());
         } catch (IOException ex) {
             JOptionPane.showMessageDialog(getView(), "ALERT: Não foi possivel carregar as informações de configuração"
                     + " ocorreu falha na escrita do arquivo config.xml", "ALERT", WARNING_MESSAGE);

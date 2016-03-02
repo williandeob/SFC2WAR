@@ -26,9 +26,15 @@ import static javax.swing.JOptionPane.ERROR_MESSAGE;
  */
 public class MainServiceFTPCliente {
 
-    public static ConfiguracaoGeral configuracaoGeral;
+    private static ConfiguracaoGeral configuracaoGeral;
     private static File diretoriodeConfiguracao;
     private static File arquivoDeConfiguracao;
+    
+    
+    private MainServiceFTPCliente(){
+        
+    }
+            
 
     /**
      * Metodo responsavel por criar ou carregar o arquivo de configuracao dos
@@ -55,6 +61,10 @@ public class MainServiceFTPCliente {
 
     }
 
+    public static ConfiguracaoGeral getConfiguracaoGeral() {
+        return configuracaoGeral;
+    }
+
     /**
      * A partir do arquivo de configuracao passado por parametro, caso o mesmo
      * seja válido, o arquivo é processado, sendo as configuracoes atribuidas e
@@ -64,7 +74,7 @@ public class MainServiceFTPCliente {
      * @author willian
      * @param config
      */
-    private static void processarArquivoDeConfiguracao(File config) throws ClassCastException{
+    private static void processarArquivoDeConfiguracao(File config){
         if (config == null || !config.canRead() || config.length() == 0) {
             chamarCadastroDeConfiguracaoFTP();
         } else {
@@ -84,7 +94,7 @@ public class MainServiceFTPCliente {
      * @author willian
      * @param config
      */
-    private static void carregarConfiguracao(File config) throws ClassCastException{
+    private static void carregarConfiguracao(File config){
         ParseEngineConfig parseEngine = new ParseEngineConfig();
         configuracaoGeral = parseEngine.fromXMLConfiguracaoGeral(config);            
     }
