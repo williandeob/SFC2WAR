@@ -1,4 +1,3 @@
-
 package br.itecbrazil.serviceftpcliente.view;
 
 import br.itecbrazil.serviceftpcliente.controller.ControllerCadastroConfiguracaoFTP;
@@ -19,11 +18,14 @@ import javax.swing.KeyStroke;
  * @author itec-desenv-willian
  */
 public class ViewCadastroDeConfiguracaoFTP extends javax.swing.JDialog {
- ControllerCadastroConfiguracaoFTP controllerCadastroConfiguracaoFTP;
+
+    
+    ControllerCadastroConfiguracaoFTP controllerCadastroConfiguracaoFTP;
     /**
      * A return status code - returned if Cancel button has been pressed
      */
     public static final int RET_CANCEL = 0;
+    private int returnStatus = RET_CANCEL;
     /**
      * A return status code - returned if OK button has been pressed
      */
@@ -31,12 +33,13 @@ public class ViewCadastroDeConfiguracaoFTP extends javax.swing.JDialog {
 
     /**
      * Creates new form ViewCadastroDeConfiguracaoFTP
+     *
      * @param parent
      * @param modal
      */
     public ViewCadastroDeConfiguracaoFTP(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
-        controllerCadastroConfiguracaoFTP =  new ControllerCadastroConfiguracaoFTP(this);
+        controllerCadastroConfiguracaoFTP = new ControllerCadastroConfiguracaoFTP(this);
         initComponents();
         ImageIcon img = new ImageIcon(getClass().getResource("/itecBrazil.png"));
         setIconImage(img.getImage());
@@ -221,11 +224,11 @@ public class ViewCadastroDeConfiguracaoFTP extends javax.swing.JDialog {
 
     private void okButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_okButtonActionPerformed
 
-        if(controllerCadastroConfiguracaoFTP.validarFormulario(jTextFieldDiretorioEnvio.getText(),jTextFieldDiretorioRetorno.getText())){
-            if(controllerCadastroConfiguracaoFTP.getArquivoXMLDeImportacao().length() == 0){
+        if (controllerCadastroConfiguracaoFTP.validarFormulario(jTextFieldDiretorioEnvio.getText(), jTextFieldDiretorioRetorno.getText())) {
+            if (controllerCadastroConfiguracaoFTP.getArquivoXMLDeImportacao().length() == 0) {
                 JOptionPane.showMessageDialog(this, "INFO: O arquivo de configuração não possui conteudo", "ALERT", WARNING_MESSAGE);
-            }else{
-                controllerCadastroConfiguracaoFTP.criarConfiguracaoFTP(jTextFieldDiretorioEnvio.getText(),jTextFieldDiretorioRetorno.getText());
+            } else {
+                controllerCadastroConfiguracaoFTP.criarConfiguracaoFTP(jTextFieldDiretorioEnvio.getText(), jTextFieldDiretorioRetorno.getText());
             }
         }
     }//GEN-LAST:event_okButtonActionPerformed
@@ -244,8 +247,9 @@ public class ViewCadastroDeConfiguracaoFTP extends javax.swing.JDialog {
     private void jButtonImportarXMLActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonImportarXMLActionPerformed
 
         controllerCadastroConfiguracaoFTP.carregarXML();
-        if(controllerCadastroConfiguracaoFTP.getArquivoXMLDeImportacao()!=null)
-        jLabelPathArquivo.setText(controllerCadastroConfiguracaoFTP.getArquivoXMLDeImportacao().getAbsolutePath());
+        if (controllerCadastroConfiguracaoFTP.getArquivoXMLDeImportacao() != null) {
+            jLabelPathArquivo.setText(controllerCadastroConfiguracaoFTP.getArquivoXMLDeImportacao().getAbsolutePath());
+        }
     }//GEN-LAST:event_jButtonImportarXMLActionPerformed
 
     private void jButtonPesqDiretorioRetornoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonPesqDiretorioRetornoActionPerformed
@@ -259,10 +263,10 @@ public class ViewCadastroDeConfiguracaoFTP extends javax.swing.JDialog {
     private void doClose(int retStatus) {
         returnStatus = retStatus;
         setVisible(false);
-        dispose(); 
+        dispose();
     }
 
-  
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton cancelButton;
     private javax.swing.JButton jButtonImportarXML;
@@ -277,5 +281,5 @@ public class ViewCadastroDeConfiguracaoFTP extends javax.swing.JDialog {
     private javax.swing.JButton okButton;
     // End of variables declaration//GEN-END:variables
 
-    private int returnStatus = RET_CANCEL;
+    
 }
