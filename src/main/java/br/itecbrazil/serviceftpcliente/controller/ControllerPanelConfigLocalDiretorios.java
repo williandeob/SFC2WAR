@@ -59,13 +59,13 @@ public class ControllerPanelConfigLocalDiretorios {
     }
 
     private boolean compararNovoDiretorioComDiretoriosAnteriores(String novoDiretorio) {
-        return (novoDiretorio.equals(getView().getjTextFieldDirEnvio().getText())
-                || novoDiretorio.equals(getView().getjTextFieldDirRetorno().getText()));
+        return novoDiretorio.equals(getView().getjTextFieldDirEnvio().getText())
+                || novoDiretorio.equals(getView().getjTextFieldDirRetorno().getText());
 
     }
 
-    private void processarAlteracao(JTextField diretorio) {
-        if (diretorio.getName().equals("jTextFieldDirEnvio")) {
+    private void processarAlteracao(JTextField diretorio) {        
+        if (("jTextFieldDirEnvio").equals(diretorio.getName())){
             MainServiceFTPCliente.getConfiguracaoGeral().setDiretorioDeEnvio(diretorio.getText());
         } else {
             MainServiceFTPCliente.getConfiguracaoGeral().setDiretorioDeRetorno(diretorio.getText());

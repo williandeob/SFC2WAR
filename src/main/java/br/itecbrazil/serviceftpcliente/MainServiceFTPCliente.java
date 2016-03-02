@@ -29,6 +29,12 @@ public class MainServiceFTPCliente {
     private static ConfiguracaoGeral configuracaoGeral;
     private static File diretoriodeConfiguracao;
     private static File arquivoDeConfiguracao;
+    
+    
+    private MainServiceFTPCliente(){
+        
+    }
+            
 
     /**
      * Metodo responsavel por criar ou carregar o arquivo de configuracao dos
