@@ -24,7 +24,7 @@ public class UtilConfig {
     }
 
     /**
-     * Metpdo responsável por limpar o objeto de ConfiguracaoGeral.
+     * Metodo responsável por limpar o objeto de ConfiguracaoGeral.
      */
     public static void limparConfiguracao() {
         List<Config> listaVazia = new ArrayList<Config>();
