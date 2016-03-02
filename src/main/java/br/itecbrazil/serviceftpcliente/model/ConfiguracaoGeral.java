@@ -14,9 +14,9 @@ import java.util.List;
  */
 public class ConfiguracaoGeral {
 
-    String diretorioDeEnvio;
-    String diretorioDeRetorno;
-    List<Config> listaDeConfiguracoes;
+    private String diretorioDeEnvio;
+    private String diretorioDeRetorno;
+    private List<Config> listaDeConfiguracoes;
 
     public ConfiguracaoGeral() {
     }

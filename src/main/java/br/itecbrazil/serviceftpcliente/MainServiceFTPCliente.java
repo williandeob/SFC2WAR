@@ -26,7 +26,7 @@ import static javax.swing.JOptionPane.ERROR_MESSAGE;
  */
 public class MainServiceFTPCliente {
 
-    public static ConfiguracaoGeral configuracaoGeral;
+    private static ConfiguracaoGeral configuracaoGeral;
     private static File diretoriodeConfiguracao;
     private static File arquivoDeConfiguracao;
 
@@ -53,6 +53,10 @@ public class MainServiceFTPCliente {
             }
         }
 
+    }
+
+    public static ConfiguracaoGeral getConfiguracaoGeral() {
+        return configuracaoGeral;
     }
 
     /**

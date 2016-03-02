@@ -22,8 +22,8 @@ public class ScheduleEnvio extends ScheduleImplementation {
 
     @Override
     public void execute() {
-        for (Config configThread : MainServiceFTPCliente.configuracaoGeral.getListaDeConfiguracoes()) {
-            getExecutorService().scheduleAtFixedRate(new ThreadEnvio(configThread, PanelDashBoardEnvioRetorno.controller), 30, 30, TimeUnit.SECONDS);
+        for (Config configThread : MainServiceFTPCliente.getConfiguracaoGeral().getListaDeConfiguracoes()) {
+            getExecutorService().scheduleAtFixedRate(new ThreadEnvio(configThread, PanelDashBoardEnvioRetorno.getController()), 30, 30, TimeUnit.SECONDS);
         }
 
     }

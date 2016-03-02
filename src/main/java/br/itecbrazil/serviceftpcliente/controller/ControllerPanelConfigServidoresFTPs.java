@@ -50,7 +50,7 @@ public class ControllerPanelConfigServidoresFTPs {
         getView().getjTableConfigFTP().getTableHeader().setPreferredSize(new Dimension(getView().getjTableConfigFTP().getWidth(), 25));
         getView().getjTableConfigFTP().getTableHeader().setFont(new Font("Tahoma", Font.BOLD, 11));
 
-        for (Config config : MainServiceFTPCliente.configuracaoGeral.getListaDeConfiguracoes()) {
+        for (Config config : MainServiceFTPCliente.getConfiguracaoGeral().getListaDeConfiguracoes()) {
             getView().getModeloDaTabelaDeConfigFTP().addRow(new Object[]{config.getHost(), config.getCnpj(),
                 config.getDirFornFtpReader(), config.getDirFornFtpWriter(), "Excluir"});
         }
@@ -85,12 +85,12 @@ public class ControllerPanelConfigServidoresFTPs {
             return;
         }
 
-        Config configASerRemovido = MainServiceFTPCliente.configuracaoGeral.buscarConfiguracoPorCNPJ(cnpjDoClienteLigadoAoFTP);
+        Config configASerRemovido = MainServiceFTPCliente.getConfiguracaoGeral().buscarConfiguracoPorCNPJ(cnpjDoClienteLigadoAoFTP);
         if (configASerRemovido != null) {
             ScheduleEngine.pararScheduler();
-            MainServiceFTPCliente.configuracaoGeral.getListaDeConfiguracoes().remove(configASerRemovido);
+            MainServiceFTPCliente.getConfiguracaoGeral().getListaDeConfiguracoes().remove(configASerRemovido);
             try {
-                parseEngine.toXMLArquivoDeConfiguracaoGeral(MainServiceFTPCliente.configuracaoGeral);
+                parseEngine.toXMLArquivoDeConfiguracaoGeral(MainServiceFTPCliente.getConfiguracaoGeral());
                 getView().getModeloDaTabelaDeConfigFTP().removeRow(posicaoDaLinha);
                 JOptionPane.showMessageDialog(getView(), "CONFIRM: Exclusão realizada com Sucesso"
                         + "", "ALERT", INFORMATION_MESSAGE);
@@ -127,7 +127,7 @@ public class ControllerPanelConfigServidoresFTPs {
                     JOptionPane.showMessageDialog(getView(), "INFO: O arquivo possui duas configurações com o mesmo CNPJ", "ALERT", WARNING_MESSAGE);
                     return;
                 }
-                if (!MainServiceFTPCliente.configuracaoGeral.adicionarNovasConfiguracoes(listaDeNovasConfiguracoes)) {
+                if (!MainServiceFTPCliente.getConfiguracaoGeral().adicionarNovasConfiguracoes(listaDeNovasConfiguracoes)) {
                     JOptionPane.showMessageDialog(getView(), "INFO: Configurações não adicionadas, pois possuem CNPJ já cadastrado", "ALERT", WARNING_MESSAGE);
                 } else {
                     processoDeAdicionarNovasConfiguracoes(listaDeNovasConfiguracoes);
@@ -142,7 +142,7 @@ public class ControllerPanelConfigServidoresFTPs {
     private void processoDeAdicionarNovasConfiguracoes(List<Config> listaDeNovasConfiguracoes) {
         ScheduleEngine.pararScheduler();
         try {
-            parseEngine.toXMLArquivoDeConfiguracaoGeral(MainServiceFTPCliente.configuracaoGeral);
+            parseEngine.toXMLArquivoDeConfiguracaoGeral(MainServiceFTPCliente.getConfiguracaoGeral());
             for (Config config : listaDeNovasConfiguracoes) {
                 getView().getModeloDaTabelaDeConfigFTP().addRow(new Object[]{config.getHost(), config.getCnpj(),
                     config.getDirFornFtpReader(), config.getDirFornFtpWriter()});    
@@ -159,9 +159,9 @@ public class ControllerPanelConfigServidoresFTPs {
 
     public void limparConfiguracoes() {
         ScheduleEngine.pararScheduler();
-        MainServiceFTPCliente.configuracaoGeral.getListaDeConfiguracoes().clear();
+        MainServiceFTPCliente.getConfiguracaoGeral().getListaDeConfiguracoes().clear();
         try {
-            parseEngine.toXMLArquivoDeConfiguracaoGeral(MainServiceFTPCliente.configuracaoGeral);
+            parseEngine.toXMLArquivoDeConfiguracaoGeral(MainServiceFTPCliente.getConfiguracaoGeral());
             while (getView().getModeloDaTabelaDeConfigFTP().getRowCount() > 0) {
                 getView().getModeloDaTabelaDeConfigFTP().removeRow(0);
             }

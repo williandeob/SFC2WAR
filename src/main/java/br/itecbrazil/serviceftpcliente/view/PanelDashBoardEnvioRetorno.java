@@ -18,7 +18,7 @@ public class PanelDashBoardEnvioRetorno extends javax.swing.JPanel {
      * Controller estático da view,porém instânciado ao chamar o construtor de
      * PanelDashBoardEnvioRetorno, usado pelas Threads para alterar o panel.
      */
-    public static ControllerDashBoardEnvioRetorno controller;
+    private static ControllerDashBoardEnvioRetorno controller;
 
     /**
      * Creates new form PanelDashBoardEnvioRetorno
@@ -27,6 +27,12 @@ public class PanelDashBoardEnvioRetorno extends javax.swing.JPanel {
         initComponents();
         controller = new ControllerDashBoardEnvioRetorno(this);
     }
+
+    public static ControllerDashBoardEnvioRetorno getController() {
+        return controller;
+    }
+    
+    
 
     public JTextPane getjTextPaneLogsEnvio() {
         return jTextPaneLogsEnvio;

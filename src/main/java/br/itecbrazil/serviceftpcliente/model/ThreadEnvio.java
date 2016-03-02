@@ -29,8 +29,8 @@ public class ThreadEnvio implements Runnable {
 
     private ProcessaFTP processaEnvio;
     private final Config config;
-    public static Logger logger = Logger.getLogger("EnvioFTP");
-    public static Logger loggerExceptionEnvio = Logger.getLogger("EnvioFTPException");
+    private static Logger logger = Logger.getLogger("EnvioFTP");
+    private static Logger loggerExceptionEnvio = Logger.getLogger("EnvioFTPException");
     private ControllerDashBoardEnvioRetorno controller;
 
     public ThreadEnvio(Config config, ControllerDashBoardEnvioRetorno controller) {
@@ -66,7 +66,7 @@ public class ThreadEnvio implements Runnable {
 
             logger.info("Thread em Execucao - " + Thread.currentThread().getName() + " Cliente de CNPJ " + getConfig().getCnpj());
 
-            listaDeArquivosParaEnvio = buscarArquivoDiretorioLocalDeEnvio(MainServiceFTPCliente.configuracaoGeral.getDiretorioDeEnvio());
+            listaDeArquivosParaEnvio = buscarArquivoDiretorioLocalDeEnvio(MainServiceFTPCliente.getConfiguracaoGeral().getDiretorioDeEnvio());
 
             if (listaDeArquivosParaEnvio != null && !listaDeArquivosParaEnvio.isEmpty()) {
 
