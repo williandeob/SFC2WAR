@@ -167,7 +167,7 @@ public class ThreadEnvio implements Runnable {
                 httppost.setHeader("X-Requested-With", "XMLHttpRequest");
 
                 MultipartEntity mpEntity = new MultipartEntity();
-                mpEntity.addPart("id", new StringBody("1"));
+                mpEntity.addPart("id", new StringBody("3"));
                 mpEntity.addPart("arquivo", new FileBody(arquivo));
 
                 httppost.setEntity(mpEntity);

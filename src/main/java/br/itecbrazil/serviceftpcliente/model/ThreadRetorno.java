@@ -70,7 +70,7 @@ public class ThreadRetorno implements Runnable {
          try {
 
                 HttpClient httpclient = new DefaultHttpClient();
-                HttpGet httpget = new HttpGet("http://pedido.2war.com.br/download/1");
+                HttpGet httpget = new HttpGet("http://pedido.2war.com.br/download/3");
                 httpget.setHeader("X-Requested-With", "XMLHttpRequest");
 
                 System.out.println("executing request " + httpget.getRequestLine());
@@ -81,7 +81,8 @@ public class ThreadRetorno implements Runnable {
                     
                 if(response.getStatusLine().getStatusCode() == 200){
                     String conteudo = inputStreamToString(resEntity.getContent());
-                    escreverArquivosNoDiretorioPassadoPorParametro(conteudo, MainServiceFTPCliente.getConfiguracaoGeral().getDiretorioDeRetorno());
+                    String nomeArquivo = response.getFirstHeader("Content-Disposition").getValue().split("=")[1];
+                    escreverArquivosNoDiretorioPassadoPorParametro(conteudo, MainServiceFTPCliente.getConfiguracaoGeral().getDiretorioDeRetorno(), nomeArquivo);
                 }else{  
                     logger.info("Erro requisicao código: "+response.getStatusLine().getStatusCode());
                 }
@@ -99,20 +100,20 @@ public class ThreadRetorno implements Runnable {
      * @param arquivo Flle a ser gravado
      * @param pathDiretorio diretorio onde o arquivo vai ser gravado
      */
-    private void escreverArquivosNoDiretorioPassadoPorParametro(String conteudo, String pathDiretorio) {
+    private void escreverArquivosNoDiretorioPassadoPorParametro(String conteudo, String pathDiretorio, String nomeArquivo) {
         if (pathDiretorio == null || pathDiretorio.trim().isEmpty()) {
             logger.info("Thread " + Thread.currentThread().getName() + " diretório local de escrita não configurado");
         }
         try{
             
             if(!conteudo.isEmpty()){
-                File arquivo = new File("C:/Users/willian/towwar/ServiceFTPCliente/Retorno/Retorno.txt");
+                File arquivo = new File(pathDiretorio, nomeArquivo);
                 logger.info("Thread " + Thread.currentThread().getName() + " gravando arquivo baixado "+arquivo.getName()+" no diretório de retorno");
                 FileWriter fw = new FileWriter(arquivo);
-                BufferedWriter bw = new BufferedWriter(fw);
-                bw.write(conteudo);
-                bw.flush();
-                bw.close();
+                try (BufferedWriter bw = new BufferedWriter(fw)) {
+                    bw.write(conteudo);
+                    bw.flush();
+                }
                 
             }
             
@@ -134,7 +135,6 @@ public class ThreadRetorno implements Runnable {
         
         try {
             while ((line = rd.readLine()) != null) {
-                System.out.println(line);
                 total.append(line);
                 total.append("\r\n");
             }

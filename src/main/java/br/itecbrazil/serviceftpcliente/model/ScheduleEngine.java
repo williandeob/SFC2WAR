@@ -43,12 +43,12 @@ public class ScheduleEngine {
     public static void prepararEIniciarScheduler() {
         schedulerFactory();
         getEnvio().execute();
-        //getRetorno().execute();
+        getRetorno().execute();
     }
 
     public static void pararScheduler() {
         getEnvio().parar();
-        //getRetorno().parar();
+        getRetorno().parar();
     }
 
 }
