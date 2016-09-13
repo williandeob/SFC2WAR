@@ -23,7 +23,7 @@ public class ViewHome extends javax.swing.JFrame {
     public ViewHome() {
         controller = new ControllerViewHome(this);
         initComponents();
-        ImageIcon img = new ImageIcon(getClass().getResource("/itecBrazil.png"));
+        ImageIcon img = new ImageIcon(getClass().getResource("/sfc.jpg"));
         setIconImage(img.getImage());
         panelConfigLocalDiretorios.preencherPathDiretorios();
         panelConfigServidoresFTP.popularTabelaDeConfiguracoesFTPs();
@@ -63,7 +63,7 @@ public class ViewHome extends javax.swing.JFrame {
         setMinimumSize(new java.awt.Dimension(712, 630));
 
         jLabelRodape.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jLabelRodape.setText("Copyright ©  ItecBrazil");
+        jLabelRodape.setText("Copyright © 2WAR");
         jLabelRodape.setToolTipText("");
         jLabelRodape.setName("jLabelRodape"); // NOI18N
 

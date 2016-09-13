@@ -64,7 +64,7 @@ public class PanelDashBoardEnvioRetorno extends javax.swing.JPanel {
         setPreferredSize(new java.awt.Dimension(680, 225));
 
         jLabelTitulo.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
-        jLabelTitulo.setText("Logs de Envio e Retorno");
+        jLabelTitulo.setText("Logs de envio e retorno");
         jLabelTitulo.setName("jLabelTitulo"); // NOI18N
 
         jTextPaneLogsEnvio.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));

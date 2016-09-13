@@ -84,7 +84,7 @@ public class PanelConfigServidoresFTPs extends javax.swing.JPanel {
         jScrollPaneConfigFTP.setViewportView(jTableConfigFTP);
 
         jLabelTitulo.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
-        jLabelTitulo.setText("Lista de Servidores FTPs Ativos");
+        jLabelTitulo.setText("Dados servidor ativo");
 
         jButtonAdcionarConfig.setText("Adicionar Novas Configurações");
         jButtonAdcionarConfig.setName("jButtonAdcionarConfig"); // NOI18N

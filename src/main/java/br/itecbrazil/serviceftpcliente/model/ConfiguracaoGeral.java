@@ -5,7 +5,6 @@
  */
 package br.itecbrazil.serviceftpcliente.model;
 
-import br.itecbrazil.pedido.api.ftp.Config;
 import java.util.List;
 
 /**
@@ -21,10 +20,10 @@ public class ConfiguracaoGeral {
     public ConfiguracaoGeral() {
     }
 
-    public ConfiguracaoGeral(String diretorioDeEnvio, String diretorioDeRetorno, List<Config> listaDeCopnfiguracoes) {
+    public ConfiguracaoGeral(String diretorioDeEnvio, String diretorioDeRetorno, List<Config> listaDeConfiguracoes) {
         this.diretorioDeEnvio = diretorioDeEnvio;
         this.diretorioDeRetorno = diretorioDeRetorno;
-        this.listaDeConfiguracoes = listaDeCopnfiguracoes;
+        this.listaDeConfiguracoes = listaDeConfiguracoes;
     }
 
     /**

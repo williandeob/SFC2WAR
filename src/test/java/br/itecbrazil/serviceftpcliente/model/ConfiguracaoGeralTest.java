@@ -5,7 +5,6 @@
  */
 package br.itecbrazil.serviceftpcliente.model;
 
-import br.itecbrazil.pedido.api.ftp.Config;
 import java.util.ArrayList;
 import java.util.List;
 import org.junit.After;

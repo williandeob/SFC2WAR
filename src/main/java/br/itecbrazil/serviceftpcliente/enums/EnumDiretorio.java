@@ -16,7 +16,7 @@ import java.io.File;
  */
 public enum EnumDiretorio {
 
-    Configuracao(System.getProperty("user.home").concat(File.separator).concat("Itecbrazil").concat(File.separator)
+    Configuracao(System.getProperty("user.home").concat(File.separator).concat("towwar").concat(File.separator)
             .concat("ServiceFTPCliente").concat(File.separator).concat("Config"));
     String diretorio;
 

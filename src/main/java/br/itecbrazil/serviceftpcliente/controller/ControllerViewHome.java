@@ -52,7 +52,7 @@ public class ControllerViewHome {
         try {
 
             final SystemTray tray = SystemTray.getSystemTray();
-            ImageIcon img = new ImageIcon(getClass().getResource("/itecBrazil.png"));
+            ImageIcon img = new ImageIcon(getClass().getResource("/sfc.jpg"));
 
             PopupMenu popup = new PopupMenu();
             MenuItem exitItem = new MenuItem("Sair do SFC");
@@ -62,7 +62,7 @@ public class ControllerViewHome {
             popup.add(exitItem);
             popup.add(diplayItem);
 
-            iconItec = new TrayIcon(img.getImage(), "ITECBRAZIL - SFC", popup);
+            iconItec = new TrayIcon(img.getImage(), "2WAR - SFC", popup);
 
             iconItec.setImageAutoSize(true);
             iconItec.addActionListener(configuraActionListener());

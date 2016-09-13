@@ -5,17 +5,21 @@
  */
 package br.itecbrazil.serviceftpcliente.model;
 
-import br.itecbrazil.pedido.api.ftp.Config;
-import br.itecbrazil.pedido.api.ftp.ProcessaFTP;
 import br.itecbrazil.serviceftpcliente.MainServiceFTPCliente;
 import br.itecbrazil.serviceftpcliente.controller.ControllerDashBoardEnvioRetorno;
-import java.io.BufferedOutputStream;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileOutputStream;
-import java.io.OutputStream;
-import java.util.ArrayList;
-import java.util.List;
-import org.apache.commons.net.ftp.FTPFile;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.MalformedURLException;
+import org.apache.http.HttpEntity;
+import org.apache.http.HttpResponse;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.log4j.Logger;
 
 /**
@@ -24,11 +28,11 @@ import org.apache.log4j.Logger;
  */
 public class ThreadRetorno implements Runnable {
 
-    private ProcessaFTP processaRetorno;
-    private final Config config;
-    private static Logger logger = Logger.getLogger("BuscaFTP");
-    private static Logger loggerExceptionRetorno = Logger.getLogger("BuscaFTPException");
+    private Config config;
     private ControllerDashBoardEnvioRetorno controller;
+    private static Logger logger = Logger.getLogger("Busca");
+    private static Logger loggerExceptionRetorno = Logger.getLogger("BuscaException");
+    
 
     public ThreadRetorno(Config config, ControllerDashBoardEnvioRetorno controller) {
         this.config = config;
@@ -39,186 +43,109 @@ public class ThreadRetorno implements Runnable {
         return config;
     }
 
-    public ProcessaFTP getProcessaRetorno() {
-        return processaRetorno;
-    }
-
     public ControllerDashBoardEnvioRetorno getController() {
         return controller;
     }
 
-    public static Logger getLogger() {
-        return logger;
-    }
-
     @Override
     public void run() {
-        List<FTPFile> listaDeFTPArquivosCarregados;
-
-        if (getConfig() == null) {
-         
-            logger.info("Ocorreu um erro ao iniciar o processo de Retorno, configuracao não encontrada - " + Thread.currentThread().getName());
-            
-        } else {
-            if (conectarFTP()) {
-                listaDeFTPArquivosCarregados = buscarArquivosNoDiretorioDoFTP(getConfig().getDirFornFtpWriter());
-                if (listaDeFTPArquivosCarregados != null && !listaDeFTPArquivosCarregados.isEmpty()) {
-                    if (escreverArquivosNoDiretorioPassadoPorParametro(listaDeFTPArquivosCarregados, MainServiceFTPCliente.getConfiguracaoGeral().getDiretorioDeRetorno())) {
-                        deletarArquivosJaCarregadosDoDiretorioDoFTP(listaDeFTPArquivosCarregados);
-                    }
-                }
-                try {
-                    getProcessaRetorno().logout();
-                } catch (Exception ex) {
-                    loggerExceptionRetorno.info(Thread.currentThread().getName()+" cliente "+ getConfig().getCnpj()+" "+ex);
-                }
-            }
+        logger.info("Thread " + Thread.currentThread().getName() + "verificando retorno do fornecedor de cnpj " + getConfig().getCnpj()+ " iniciada");
+        if (getConfig() == null) {      
+            logger.info("Ocorreu um erro ao iniciar o processo de retorno, configuracao não encontrada para a " + Thread.currentThread().getName());  
+        } else {            
+            donwload();
         }
-
-       
-        logger.info("Thread " + Thread.currentThread().getName() + " conectada ao Cliente de CNPJ " + getConfig().getCnpj() + " finalizada");
-        
-
-    }
-
-    private boolean conectarFTP() {
-        try {
-            processaRetorno = new ProcessaFTP(getConfig());
-            
-            logger.info("Thread " + Thread.currentThread().getName() + " conectou no FTP do Cliente " + getConfig().getCnpj());
-            
-            return true;
-        } catch (Exception ex) {
-            loggerExceptionRetorno.info(Thread.currentThread().getName()+" cliente "+ getConfig().getCnpj()+" "+ex);
-        }
-       
-        logger.error("Thread " + Thread.currentThread().getName() + " não se conectou ao FTP do cliente " + getConfig().getCnpj());
-        
-        return false;
-    }
-
-    private List<FTPFile> buscarArquivosNoDiretorioDoFTP(String pathDiretorioFTP) {
-        if (pathDiretorioFTP == null || pathDiretorioFTP.trim().isEmpty()) {
-           
-            logger.info("Não foi possivel encontrar o caminho do diretorio de busca do FTP, o mesmo está nulo ou vazio - " + Thread.currentThread().getName() + " Cliente de CNPJ " + getConfig().getCnpj());
-           
-            return null;
-        }
-
-        if (getProcessaRetorno().checkDirectoryExists(pathDiretorioFTP)) {
-
-            try {
-                FTPFile[] listaDeArquivosFTPEncontrados;
-                List<FTPFile> listaFTPFileReturn = new ArrayList<FTPFile>();
-                listaDeArquivosFTPEncontrados = getProcessaRetorno().getFtpClient().listFiles();
-                for (FTPFile listaDeArquivosFTPEncontrado : listaDeArquivosFTPEncontrados) {
-                    if (listaDeArquivosFTPEncontrado.getType() == FTPFile.FILE_TYPE) {
-                        listaFTPFileReturn.add(listaDeArquivosFTPEncontrado);
-                    }
-                }
-                if (listaFTPFileReturn.isEmpty()) {
-                  
-                    logger.info("Thread " + Thread.currentThread().getName() + " não encontrou nenhum arquivo no diretorio de busca no FTP do Cliente " + getConfig().getCnpj());
-                    
-                }
-
-                return listaFTPFileReturn;
-            } catch (Exception ex) {
-                loggerExceptionRetorno.info(Thread.currentThread().getName()+" cliente "+ getConfig().getCnpj()+" "+ex);
-            }
-        }
-        
-        logger.info("A Thread " + Thread.currentThread().getName() + " não encontrou o diretorio de busca do fTP do Cliente de CNPJ " + getConfig().getCnpj());
-        
-        return null;
+        logger.info("Thread " + Thread.currentThread().getName() + " conectada ao fornecedor de cnpj " + getConfig().getCnpj() + " finalizada");
     }
 
     /**
-     *
-     * @param listaDeArquivos
-     * @param pathDiretorio
-     * @return se todos os aquivos a serem escritos no diretorio passado por
-     * parametro forem escritos com sucesso retorna true, caso algum ou nenhuma
-     * desses arquivos sejam escritos o metodo retorna false.
+     * Conecta no servidor e verifica se tem arquivos para ser baixados
+     * caso tenha arquivo ele baixa e manda grava
+     * @see escreverArquivosNoDiretorioPassadoPorParametro
+     * @return 
      */
-    private boolean escreverArquivosNoDiretorioPassadoPorParametro(List<FTPFile> listaDeArquivos, String pathDiretorio) {
-        if (pathDiretorio == null || pathDiretorio.trim().isEmpty()) {
-            return false;
-        }
+    private void donwload() {
+        logger.info("Thread " + Thread.currentThread().getName() + " iniciando conexao com o servidor");
+        InputStream is = null;
+         try {
 
-       
-        logger.info("Thread " + Thread.currentThread().getName() + " encontrou no diretorio de busca " + listaDeArquivos.size() + " arquivo(s) para downloading no FTP do Clente " + getConfig().getCnpj());
-       
+                HttpClient httpclient = new DefaultHttpClient();
+                HttpGet httpget = new HttpGet("http://pedido.2war.com.br/download/1");
+                httpget.setHeader("X-Requested-With", "XMLHttpRequest");
 
-        boolean retorno = true;
-        boolean result;
+                System.out.println("executing request " + httpget.getRequestLine());
+                HttpResponse response = httpclient.execute(httpget);
+                HttpEntity resEntity = response.getEntity();
 
-        for (FTPFile ftpFile : listaDeArquivos) {
-            if (ftpFile.getType() == FTPFile.FILE_TYPE) {
-                OutputStream ops = null;
-                try {
-
-                    File file = new File(pathDiretorio.concat(File.separator).concat(ftpFile.getName()));
-                    ops = new BufferedOutputStream(new FileOutputStream(file));
-                    result = getProcessaRetorno().getFtpClient().retrieveFile(ftpFile.getName(), ops);
-
-                    if (result) {
-                        
-                        logger.info("Thread " + Thread.currentThread().getName() + " baixou o arquivo " + ftpFile.getName() + " no FTP do Clente" + getConfig().getCnpj());
-                        
-                        getController().atualizarLogsDeRetorno(getConfig().getHost(), pathDiretorio, ftpFile.getName());
-
-                        if (!getProcessaRetorno().getFtpClient().rename(ftpFile.getName(), getConfig().getDirFornFtpBackUpWriter()
-                                .concat(File.separator).concat(ftpFile.getName()))) {
-                            getProcessaRetorno().getFtpClient().rename(ftpFile.getName(), getConfig().getDirFornFtpBackUpWriter()
-                                    .concat("/").concat(ftpFile.getName()));
-                        }
-
-                    } else {
-                        
-                        logger.info("Thread " + Thread.currentThread().getName() + " falhou ao baixar o arquivo " + ftpFile.getName() + " no FTP do Clente " + getConfig().getCnpj());
-                       
-                        retorno = false;
-                    }
-
-                } catch (Exception ex) {
-                   loggerExceptionRetorno.info(Thread.currentThread().getName()+" cliente "+ getConfig().getCnpj()+" "+ex);
-                } finally {
-                    if (ops != null) {
-                        try {
-                            ops.flush();
-                            ops.close();
-
-                        } catch (Exception ex) {
-                            loggerExceptionRetorno.info(Thread.currentThread().getName()+" cliente "+ getConfig().getCnpj()+" "+ex);
-                         }
-                    }
+                System.out.println(response.getStatusLine().getStatusCode());
+                    
+                if(response.getStatusLine().getStatusCode() == 200){
+                    String conteudo = inputStreamToString(resEntity.getContent());
+                    escreverArquivosNoDiretorioPassadoPorParametro(conteudo, MainServiceFTPCliente.getConfiguracaoGeral().getDiretorioDeRetorno());
+                }else{  
+                    logger.info("Erro requisicao código: "+response.getStatusLine().getStatusCode());
                 }
-            }
-        }
-
-        return retorno;
+                    
+            } catch (MalformedURLException ex) {
+                loggerExceptionRetorno.info(ex);
+            } catch (IOException ex) {
+                loggerExceptionRetorno.info(ex);
+            }    
+        
     }
-
-    private void deletarArquivosJaCarregadosDoDiretorioDoFTP(List<FTPFile> listaDeArquivos) {
-        if (listaDeArquivos == null || listaDeArquivos.isEmpty()) {
-            return;
+    
+    /**
+     * Grava arquivos no diretorio desejado
+     * @param arquivo Flle a ser gravado
+     * @param pathDiretorio diretorio onde o arquivo vai ser gravado
+     */
+    private void escreverArquivosNoDiretorioPassadoPorParametro(String conteudo, String pathDiretorio) {
+        if (pathDiretorio == null || pathDiretorio.trim().isEmpty()) {
+            logger.info("Thread " + Thread.currentThread().getName() + " diretório local de escrita não configurado");
         }
-
-        for (FTPFile ftpFile : listaDeArquivos) {
-            if (ftpFile.getType() == FTPFile.FILE_TYPE) {
-                try {
-                    if (getProcessaRetorno().getFtpClient().deleteFile(ftpFile.getName())) {
-                       
-                        logger.info("Thread " + Thread.currentThread().getName() + " excluiu o arquivo " + ftpFile.getName() + " do FTP do Clente " + getConfig().getCnpj());
-                        
-                    }
-                } catch (Exception ex) {
-                   loggerExceptionRetorno.info(Thread.currentThread().getName()+" cliente "+ getConfig().getCnpj()+" "+ex);
-                }
+        try{
+            
+            if(!conteudo.isEmpty()){
+                File arquivo = new File("C:/Users/willian/towwar/ServiceFTPCliente/Retorno/Retorno.txt");
+                logger.info("Thread " + Thread.currentThread().getName() + " gravando arquivo baixado "+arquivo.getName()+" no diretório de retorno");
+                FileWriter fw = new FileWriter(arquivo);
+                BufferedWriter bw = new BufferedWriter(fw);
+                bw.write(conteudo);
+                bw.flush();
+                bw.close();
+                
             }
-
+            
+        }catch(IOException ex){
+            loggerExceptionRetorno.info(ex);
         }
+
+    }
+    
+    /**
+     * Parse do conteudo do stream para texto
+     * @param is
+     * @return 
+     */
+     private String inputStreamToString(InputStream is) {
+        String line;
+        StringBuilder total = new StringBuilder();
+        BufferedReader rd = new BufferedReader(new InputStreamReader(is));
+        
+        try {
+            while ((line = rd.readLine()) != null) {
+                System.out.println(line);
+                total.append(line);
+                total.append("\r\n");
+            }
+        } catch (IOException e) {
+           
+        }
+        
+        if(total.toString().contains("\"success\":false")){
+            return "";
+        }
+        return total.toString();
     }
 
 }

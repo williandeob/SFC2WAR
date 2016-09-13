@@ -5,7 +5,7 @@
  */
 package br.itecbrazil.serviceftpcliente.util;
 
-import br.itecbrazil.pedido.api.ftp.Config;
+import br.itecbrazil.serviceftpcliente.model.Config;
 import br.itecbrazil.serviceftpcliente.MainServiceFTPCliente;
 import br.itecbrazil.serviceftpcliente.enums.EnumArquivos;
 import java.io.File;

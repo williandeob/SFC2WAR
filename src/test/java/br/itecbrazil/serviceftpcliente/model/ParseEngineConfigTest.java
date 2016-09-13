@@ -5,9 +5,6 @@
  */
 package br.itecbrazil.serviceftpcliente.model;
 
-import br.itecbrazil.pedido.api.ftp.Config;
-import br.itecbrazil.serviceftpcliente.enums.EnumArquivos;
-import br.itecbrazil.serviceftpcliente.enums.EnumDiretorio;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -88,8 +85,6 @@ public static File testFromXMLConfiguracaoGeral;
                 + "    <host>teste</host>\n"
                 + "    <usuario>teste</usuario>\n"
                 + "    <senha>teste</senha>\n"
-                + "    <dirFornFtpReader>teste</dirFornFtpReader>\n"
-                + "    <dirFornFtpWriter>teste</dirFornFtpWriter>\n"
                 + "    <cnpj>teste</cnpj>\n"
                 + "</configuracao>\n"
                 + "</listaDeConfiguracoes>";
@@ -151,8 +146,6 @@ public static File testFromXMLConfiguracaoGeral;
                 + "    <host>teste</host>\n"
                 + "    <usuario>teste</usuario>\n"
                 + "    <senha>teste</senha>\n"
-                + "    <dirFornFtpReader>teste</dirFornFtpReader>\n"
-                + "    <dirFornFtpWriter>teste</dirFornFtpWriter>\n"
                 + "    <cnpj>teste</cnpj>\n"
                 + "</configuracao>\n"
                 + "</listaDeConfiguracoes>\n"

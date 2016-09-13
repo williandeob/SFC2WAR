@@ -76,13 +76,13 @@ public class MainServiceFTPCliente {
      */
     private static void processarArquivoDeConfiguracao(File config){
         if (config == null || !config.canRead() || config.length() == 0) {
-            chamarCadastroDeConfiguracaoFTP();
+            chamarCadastroDeConfiguracao();
         } else {
             carregarConfiguracao(config);
         }
     }
 
-    private static void chamarCadastroDeConfiguracaoFTP() {
+    private static void chamarCadastroDeConfiguracao() {
         ViewCadastroDeConfiguracaoFTP viewCadastroDeConfiguracaoFTP = new ViewCadastroDeConfiguracaoFTP(null, true);
         viewCadastroDeConfiguracaoFTP.setVisible(true);
     }
@@ -126,7 +126,7 @@ public class MainServiceFTPCliente {
             processarArquivoDeConfiguracao(arquivoDeConfiguracao);
             carregarTelaPrincipal(configuracaoGeral);
         } catch (IOException ex) {
-            JOptionPane.showMessageDialog(null, "ERRO: O Programa já está em excecução ou a porta 9581 está ocupada"
+            JOptionPane.showMessageDialog(null, "ERRO: O programa já está em excecução ou a porta 9581 está ocupada"
                     + "", "ALERT", ERROR_MESSAGE);
         } catch(ClassCastException ex){
              JOptionPane.showMessageDialog(null, "ERRO: Erro de inicialização, verifique o XML de configuração!"

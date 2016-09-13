@@ -5,7 +5,7 @@
  */
 package br.itecbrazil.serviceftpcliente.model;
 
-import br.itecbrazil.pedido.api.ftp.Config;
+import br.itecbrazil.serviceftpcliente.model.Config;
 import br.itecbrazil.serviceftpcliente.enums.EnumArquivos;
 import br.itecbrazil.serviceftpcliente.enums.EnumDiretorio;
 import com.thoughtworks.xstream.XStream;

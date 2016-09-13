@@ -5,21 +5,26 @@
  */
 package br.itecbrazil.serviceftpcliente.model;
 
-import br.itecbrazil.pedido.api.ftp.Config;
 import br.itecbrazil.serviceftpcliente.MainServiceFTPCliente;
 import java.io.File;
-import java.io.FilenameFilter;
 import java.util.List;
-import java.util.Arrays;
 import org.apache.log4j.Logger;
-import br.itecbrazil.pedido.api.ftp.ProcessaFTP;
 import br.itecbrazil.serviceftpcliente.controller.ControllerDashBoardEnvioRetorno;
-import br.itecbrazil.serviceftpcliente.util.UtilDiretorios;
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
-import java.io.OutputStream;
+import java.net.MalformedURLException;
+import java.util.ArrayList;
+import org.apache.http.HttpEntity;
+import org.apache.http.HttpResponse;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.entity.mime.MultipartEntity;
+import org.apache.http.entity.mime.content.FileBody;
+import org.apache.http.entity.mime.content.StringBody;
 
 /**
  *
@@ -27,23 +32,25 @@ import java.io.OutputStream;
  */
 public class ThreadEnvio implements Runnable {
 
-    private ProcessaFTP processaEnvio;
-    private final Config config;
-    private static Logger logger = Logger.getLogger("EnvioFTP");
-    private static Logger loggerExceptionEnvio = Logger.getLogger("EnvioFTPException");
+    private Config config;
+    private StringBuilder coteudoFileTransfer;
     private ControllerDashBoardEnvioRetorno controller;
+    private static Logger logger = Logger.getLogger("Envio");
+    private static Logger loggerExceptionEnvio = Logger.getLogger("EnvioException");
+    
 
     public ThreadEnvio(Config config, ControllerDashBoardEnvioRetorno controller) {
         this.config = config;
         this.controller = controller;
+        coteudoFileTransfer = new StringBuilder();
     }
 
     public Config getConfig() {
         return config;
     }
-
-    public ProcessaFTP getProcessaEnvio() {
-        return processaEnvio;
+    
+     public StringBuilder getCoteudoFileTransfer() {
+        return coteudoFileTransfer;
     }
 
     public ControllerDashBoardEnvioRetorno getController() {
@@ -57,138 +64,128 @@ public class ThreadEnvio implements Runnable {
     @Override
     public void run() {
         List<File> listaDeArquivosParaEnvio;
+        logger.info("Thread " + Thread.currentThread().getName() + "verificando envio para fornecedor de cnpj " + getConfig().getCnpj()+" iniciado");
 
         if (getConfig() == null) {
-
-            logger.info("Ocorreu um erro ao iniciar o processo de Envio, configuracao não encontrada - " + Thread.currentThread().getName());
-
+            logger.info("Ocorreu um erro ao iniciar o processo de envio, configuracao não encontrada para a thread " + Thread.currentThread().getName());    
         } else {
-
-            logger.info("Thread em Execucao - " + Thread.currentThread().getName() + " Cliente de CNPJ " + getConfig().getCnpj());
-
+            logger.info("Thread " + Thread.currentThread().getName()+ "em execução");
             listaDeArquivosParaEnvio = buscarArquivoDiretorioLocalDeEnvio(MainServiceFTPCliente.getConfiguracaoGeral().getDiretorioDeEnvio());
 
             if (listaDeArquivosParaEnvio != null && !listaDeArquivosParaEnvio.isEmpty()) {
-
-                logger.info("Processando " + listaDeArquivosParaEnvio.size() + " Arquivo(s) na Thread " + Thread.currentThread().getName() + " Cliente de CNPJ " + getConfig().getCnpj());
-
-                if (connectarFTP()) {
-                    if (commitDiretorioFTP(listaDeArquivosParaEnvio, getConfig().getDirFornFtpBackUp())) {
-                        if (commitDiretorioFTP(listaDeArquivosParaEnvio, getConfig().getDirFornFtpReader())) {
-                            UtilDiretorios.deletarArquivos(listaDeArquivosParaEnvio);
-                        }
-                    }
-
-                    try {
-                        getProcessaEnvio().logout();
-                    } catch (Exception ex) {
-                        loggerExceptionEnvio.info(Thread.currentThread().getName() + " cliente " + getConfig().getCnpj() + " erro logout - " + ex);
-                    }
-                }
-
+                logger.info("Arquivo " + listaDeArquivosParaEnvio.get(0).getName() +" carregado para envio. Thread: " + Thread.currentThread().getName());
+                enviarArquivo(listaDeArquivosParaEnvio.get(0), getConfig());
             }
 
-            logger.info("Thread " + Thread.currentThread().getName() + " Cliente de CNPJ " + getConfig().getCnpj() + " finalizada");
-
+            logger.info("Thread " + Thread.currentThread().getName() + " executada para fornecedor de cnpj " + getConfig().getCnpj() + " finalizada");
         }
     }
-
+    
+    /**
+     * Acessa o diretorio e eretorna os arquivo encontrados no mesmo
+     * @param pathDiretorioDeEnvio caminho do diretorio manipulado
+     * @return List<File> de arquivos encontados
+     */
     private List<File> buscarArquivoDiretorioLocalDeEnvio(String pathDiretorioDeEnvio) {
         if (pathDiretorioDeEnvio == null || pathDiretorioDeEnvio.trim().isEmpty()) {
-
-            logger.info("Não foi possivel encontrar o caminho de envio, pathDiretorioDeEnvio nulo ou vazio - " + Thread.currentThread().getName() + " Cliente de CNPJ " + getConfig().getCnpj());
-
+            logger.info("Não foi possivel encontrar o caminho de envio, diretorio nulo ou vazio. Thread: " + Thread.currentThread().getName());
             return null;
         }
 
         File diretorioDeEnvio = new File(pathDiretorioDeEnvio);
-        File[] arquivoEncontradosNoDiretorioDeEnvio = diretorioDeEnvio.listFiles(new FilenameFilter() {
-            @Override
-            public boolean accept(File dir, String name) {
-                return name.contains(getConfig().getCnpj());
+        List<File>listaDeArquivos = new ArrayList<>();
+        for(File file : diretorioDeEnvio.listFiles()){
+            if(file.isFile()){
+                listaDeArquivos.add(file);
             }
-        });
-
-        if (arquivoEncontradosNoDiretorioDeEnvio.length == 0) {
-
-            logger.info("Não foi encontrado nenhum arquivo de envio para a Thread - " + Thread.currentThread().getName() + " Cliente de CNPJ " + getConfig().getCnpj());
-
         }
 
-        return Arrays.asList(arquivoEncontradosNoDiretorioDeEnvio);
-
-    }
-
-    private boolean connectarFTP() {
-        try {
-            processaEnvio = new ProcessaFTP(getConfig());
-
-            logger.info("Thread " + Thread.currentThread().getName() + " conectou no FTP do Cliente " + getConfig().getCnpj());
-
-            return true;
-        } catch (Exception ex) {
-            logger.info("Thread " + Thread.currentThread().getName() + " não se conectou ao FTP do cliente " + getConfig().getCnpj());
-            loggerExceptionEnvio.info(Thread.currentThread().getName() + " cliente " + getConfig().getCnpj() + " " + ex);
+        if (listaDeArquivos.isEmpty()) {
+            logger.info("Não foi encontrado nenhum arquivo de envio para a thread - " + Thread.currentThread().getName());
         }
-
-        return false;
+        
+        return listaDeArquivos;
     }
 
-    private boolean commitDiretorioFTP(List<File> listaDeArquivos, String pathDiretorio) {
-
-        if (getProcessaEnvio().checkDirectoryExists(pathDiretorio)) {
-            for (File arquivo : listaDeArquivos) {
-                BufferedReader br = null;
-                OutputStream os = null;
-                try {
-                    br = new BufferedReader(new FileReader(arquivo));
-                    String linha = br.readLine();
-                    String conteudo = "";
-                    while (linha != null) {
-                        conteudo += linha;
-                        linha = br.readLine();
-                    }
-                    os = getProcessaEnvio().getFtpClient().storeFileStream(arquivo.getName());
-                    os.write(conteudo.getBytes());
-
-                } catch (FileNotFoundException ex) {
-                    loggerExceptionEnvio.info(Thread.currentThread().getName() + " cliente " + getConfig().getCnpj() + " " + ex);
-                    return false;
-                } catch (IOException ex) {
-                    loggerExceptionEnvio.info(Thread.currentThread().getName() + " cliente " + getConfig().getCnpj() + " " + ex);
-                    return false;
-                } finally {
-                    try {
-                        if (br != null) {
-                            br.close();
-                        }
-                        if (os != null) {
-                            os.flush();
-                            os.close();
-                            if (getProcessaEnvio().getFtpClient().completePendingCommand()) {
-
-                                logger.info("Thread " + Thread.currentThread().getName() + " gravou o arquivo " + arquivo.getName() + " no diretório " + pathDiretorio + " FTP do Cliente " + getConfig().getCnpj());
-
-                                if (pathDiretorio.equals(getConfig().getDirFornFtpReader())) {
-                                    getController().atualizarLogsDeEnvio(getConfig().getHost(), pathDiretorio, arquivo.getName());
-                                }
-                            }
-
-                        }
-                    } catch (Exception ex) {
-                        loggerExceptionEnvio.info(Thread.currentThread().getName() + " cliente " + getConfig().getCnpj() + " " + ex);
-                    }
-                }
+    private boolean gravarBackup(File arquivo) {
+        logger.info("Gravando backup do arquivo "+arquivo.getName()+". Thread: " + Thread.currentThread().getName());
+        
+        String pathDoBackUp = arquivo.getParent().concat(File.separator).concat("backup");
+        File diretorio = new File(pathDoBackUp);
+        FileReader fr = null;
+        BufferedReader br = null;
+        FileWriter fw = null;
+        BufferedWriter bw = null;
+        
+        try{ 
+            if(!diretorio.exists()){
+                diretorio.mkdir();
             }
-
-            return true;
-        } else {
-
-            logger.info("Thread " + Thread.currentThread().getName() + " não encontrou o diretorio " + pathDiretorio + " do FTP do cliente " + getConfig().getCnpj());
-
+            
+            File arquivoBackUp = new File(pathDoBackUp.concat(File.separator).concat(arquivo.getName()));
+            
+            fr = new FileReader(arquivo);
+            br = new BufferedReader(fr);
+            fw = new FileWriter(arquivoBackUp);
+            bw = new BufferedWriter(fw);
+            
+            String linha = br.readLine();
+            while(linha != null){
+                bw.write(linha);
+                bw.newLine();
+                bw.flush();
+                coteudoFileTransfer.append(linha);
+                linha = br.readLine();
+            }
+        } catch (FileNotFoundException ex) {
+            loggerExceptionEnvio.info(ex);
             return false;
+        } catch (IOException ex) {
+            loggerExceptionEnvio.info(ex);
+            return false;
+        }finally{
+            try {
+                if(fr != null)
+                    fr.close();
+                if(br != null)
+                    br.close();
+            } catch (IOException ex) {
+                loggerExceptionEnvio.info(ex);
+                return false;
+            }
         }
-
+ 
+        return true;
     }
 
+    private void enviarArquivo(File arquivo, Config config){
+        if(gravarBackup(arquivo)){
+            logger.info("Enviando arquivo "+arquivo.getName()+". Thread: " + Thread.currentThread().getName());
+            try {
+                HttpClient httpclient = new org.apache.http.impl.client.DefaultHttpClient();
+                HttpPost httppost = new HttpPost("http://pedido.2war.com.br/upload");
+                httppost.setHeader("X-Requested-With", "XMLHttpRequest");
+
+                MultipartEntity mpEntity = new MultipartEntity();
+                mpEntity.addPart("id", new StringBody("1"));
+                mpEntity.addPart("arquivo", new FileBody(arquivo));
+
+                httppost.setEntity(mpEntity);
+                System.out.println("executing request " + httppost.getRequestLine());
+                HttpResponse response = httpclient.execute(httppost);
+                HttpEntity resEntity = response.getEntity();
+                
+                if(response.getStatusLine().getStatusCode() == 200){
+                    logger.info("Arquivo arquivo "+arquivo.getName()+" enviado com sucesso. Thread: " + Thread.currentThread().getName());
+                    arquivo.delete();
+                    logger.info("Arquivo deletado "+arquivo.getName()+" do diretorio de envio. Thread: " + Thread.currentThread().getName());
+                }
+                
+            } catch (MalformedURLException ex) {
+                loggerExceptionEnvio.info(ex);
+            } catch (IOException ex) {
+                loggerExceptionEnvio.info(ex);
+            }         
+        }
+    }
 }

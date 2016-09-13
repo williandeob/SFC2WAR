@@ -28,9 +28,7 @@ public class UtilDiretorios {
      * @return File
      */
     public static File getDiretorioDeConfiguracao() {
-
         return criarDiretorio(EnumDiretorio.Configuracao.getDiretorio());
-
     }
 
     public static File criarDiretorio(String diretorio) {

@@ -5,7 +5,7 @@
  */
 package br.itecbrazil.serviceftpcliente.controller;
 
-import br.itecbrazil.pedido.api.ftp.Config;
+import br.itecbrazil.serviceftpcliente.model.Config;
 import br.itecbrazil.serviceftpcliente.MainServiceFTPCliente;
 import br.itecbrazil.serviceftpcliente.model.ParseEngineConfig;
 import br.itecbrazil.serviceftpcliente.util.UtilConfig;

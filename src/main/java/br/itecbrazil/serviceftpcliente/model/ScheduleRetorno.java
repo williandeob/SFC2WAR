@@ -5,7 +5,6 @@
  */
 package br.itecbrazil.serviceftpcliente.model;
 
-import br.itecbrazil.pedido.api.ftp.Config;
 import br.itecbrazil.serviceftpcliente.MainServiceFTPCliente;
 import br.itecbrazil.serviceftpcliente.view.PanelDashBoardEnvioRetorno;
 import java.util.concurrent.TimeUnit;
@@ -23,7 +22,7 @@ public class ScheduleRetorno extends ScheduleImplementation {
     @Override
     public void execute() {
         for (Config configThread : MainServiceFTPCliente.getConfiguracaoGeral().getListaDeConfiguracoes()) {
-            getExecutorService().scheduleAtFixedRate(new ThreadRetorno(configThread, PanelDashBoardEnvioRetorno.getController()), 30, 30, TimeUnit.SECONDS);
+            getExecutorService().scheduleAtFixedRate(new ThreadRetorno(configThread, PanelDashBoardEnvioRetorno.getController()), 30, 90, TimeUnit.SECONDS);
         }
 
     }

@@ -5,7 +5,7 @@
  */
 package br.itecbrazil.serviceftpcliente.controller;
 
-import br.itecbrazil.pedido.api.ftp.Config;
+import br.itecbrazil.serviceftpcliente.model.Config;
 import br.itecbrazil.serviceftpcliente.MainServiceFTPCliente;
 import br.itecbrazil.serviceftpcliente.model.ParseEngineConfig;
 import br.itecbrazil.serviceftpcliente.model.ScheduleEngine;
@@ -44,15 +44,15 @@ public class ControllerPanelConfigServidoresFTPs {
     public void popularTable() {
         getView().getModeloDaTabelaDeConfigFTP().addColumn("HOST");
         getView().getModeloDaTabelaDeConfigFTP().addColumn("CNPJ");
-        getView().getModeloDaTabelaDeConfigFTP().addColumn("DIR. FTP ENVIO");
-        getView().getModeloDaTabelaDeConfigFTP().addColumn("DIR. FTP BUSCA");
+        getView().getModeloDaTabelaDeConfigFTP().addColumn("USUÁRIO");
+        getView().getModeloDaTabelaDeConfigFTP().addColumn("SENHA");
         getView().getModeloDaTabelaDeConfigFTP().addColumn("EXCLUIR");
         getView().getjTableConfigFTP().getTableHeader().setPreferredSize(new Dimension(getView().getjTableConfigFTP().getWidth(), 25));
         getView().getjTableConfigFTP().getTableHeader().setFont(new Font("Tahoma", Font.BOLD, 11));
 
         for (Config config : MainServiceFTPCliente.getConfiguracaoGeral().getListaDeConfiguracoes()) {
             getView().getModeloDaTabelaDeConfigFTP().addRow(new Object[]{config.getHost(), config.getCnpj(),
-                config.getDirFornFtpReader(), config.getDirFornFtpWriter(), "Excluir"});
+                config.getUsuario(), config.getSenha(), "Excluir"});
         }
         getView().getjTableConfigFTP().setDefaultRenderer(Object.class, new CellRenderer());
         getView().getjTableConfigFTP().getColumn("EXCLUIR").setCellRenderer(new ButtonTable("Excluir"));
@@ -145,7 +145,7 @@ public class ControllerPanelConfigServidoresFTPs {
             parseEngine.toXMLArquivoDeConfiguracaoGeral(MainServiceFTPCliente.getConfiguracaoGeral());
             for (Config config : listaDeNovasConfiguracoes) {
                 getView().getModeloDaTabelaDeConfigFTP().addRow(new Object[]{config.getHost(), config.getCnpj(),
-                    config.getDirFornFtpReader(), config.getDirFornFtpWriter()});    
+                    "", ""});    
             }
         } catch (IOException ex) {
             Logger.getLogger(ControllerPanelConfigServidoresFTPs.class.getName()).log(Level.SEVERE, null, ex);
