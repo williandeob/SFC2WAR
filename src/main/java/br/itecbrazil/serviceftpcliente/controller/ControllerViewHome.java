@@ -52,7 +52,7 @@ public class ControllerViewHome {
         try {
 
             final SystemTray tray = SystemTray.getSystemTray();
-            ImageIcon img = new ImageIcon(getClass().getResource("/sfc.jpg"));
+            ImageIcon img = new ImageIcon(getClass().getResource("/two_war_2.png"));
 
             PopupMenu popup = new PopupMenu();
             MenuItem exitItem = new MenuItem("Sair do SFC");

@@ -23,7 +23,7 @@ public class ViewHome extends javax.swing.JFrame {
     public ViewHome() {
         controller = new ControllerViewHome(this);
         initComponents();
-        ImageIcon img = new ImageIcon(getClass().getResource("/sfc.jpg"));
+        ImageIcon img = new ImageIcon(getClass().getResource("/two_war_2.png"));
         setIconImage(img.getImage());
         panelConfigLocalDiretorios.preencherPathDiretorios();
         panelConfigServidoresFTP.popularTabelaDeConfiguracoesFTPs();
