@@ -8,6 +8,7 @@ package br.itecbrazil.serviceftpcliente.view;
 import br.itecbrazil.serviceftpcliente.controller.ControllerViewHome;
 import br.itecbrazil.serviceftpcliente.model.ScheduleEngine;
 import javax.swing.ImageIcon;
+import javax.swing.JFrame;
 
 /**
  *
@@ -26,7 +27,7 @@ public class ViewHome extends javax.swing.JFrame {
         ImageIcon img = new ImageIcon(getClass().getResource("/two_war_2.png"));
         setIconImage(img.getImage());
         panelConfigLocalDiretorios.preencherPathDiretorios();
-        panelConfigServidoresFTP.popularTabelaDeConfiguracoesFTPs();
+        panelConfigServidoresFTPs.popularTabelaDeConfiguracoesFTPs();
         ScheduleEngine.prepararEIniciarScheduler();
         controller.rodarServicoEmBackGround();
 
@@ -41,7 +42,7 @@ public class ViewHome extends javax.swing.JFrame {
     }
 
     public PanelConfigServidoresFTPs getPanelConfigServidoresFTP() {
-        return panelConfigServidoresFTP;
+        return panelConfigServidoresFTPs;
     }
 
     /**
@@ -53,13 +54,14 @@ public class ViewHome extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        panelConfigServidoresFTP = new br.itecbrazil.serviceftpcliente.view.PanelConfigServidoresFTPs();
-        panelDashBoardEnvioRetorno = new br.itecbrazil.serviceftpcliente.view.PanelDashBoardEnvioRetorno();
         jLabelRodape = new javax.swing.JLabel();
         panelConfigLocalDiretorios = new br.itecbrazil.serviceftpcliente.view.PanelConfigLocalDiretorios();
+        panelConfigServidoresFTPs = new br.itecbrazil.serviceftpcliente.view.PanelConfigServidoresFTPs();
 
         setTitle("HOME SERVICE FTP CLIENT");
+        setBackground(new java.awt.Color(255, 255, 255));
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        setMaximumSize(new java.awt.Dimension(700, 647));
         setMinimumSize(new java.awt.Dimension(712, 630));
 
         jLabelRodape.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
@@ -73,25 +75,20 @@ public class ViewHome extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(panelConfigServidoresFTP, javax.swing.GroupLayout.DEFAULT_SIZE, 692, Short.MAX_VALUE)
-                    .addComponent(panelDashBoardEnvioRetorno, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabelRodape)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(panelConfigLocalDiretorios, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap())
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(panelConfigServidoresFTPs, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabelRodape)
+                    .addComponent(panelConfigLocalDiretorios, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(9, 9, 9)
-                .addComponent(panelConfigLocalDiretorios, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(16, 16, 16)
+                .addComponent(panelConfigLocalDiretorios, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(panelConfigServidoresFTP, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(panelDashBoardEnvioRetorno, javax.swing.GroupLayout.DEFAULT_SIZE, 235, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(panelConfigServidoresFTPs, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 212, Short.MAX_VALUE)
                 .addComponent(jLabelRodape, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -140,7 +137,6 @@ public class ViewHome extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabelRodape;
     private br.itecbrazil.serviceftpcliente.view.PanelConfigLocalDiretorios panelConfigLocalDiretorios;
-    private br.itecbrazil.serviceftpcliente.view.PanelConfigServidoresFTPs panelConfigServidoresFTP;
-    private br.itecbrazil.serviceftpcliente.view.PanelDashBoardEnvioRetorno panelDashBoardEnvioRetorno;
+    private br.itecbrazil.serviceftpcliente.view.PanelConfigServidoresFTPs panelConfigServidoresFTPs;
     // End of variables declaration//GEN-END:variables
 }

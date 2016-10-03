@@ -100,8 +100,7 @@ public class MainServiceFTPCliente {
     }
 
     /**
-     * Se a configuracao estiver correta o metodo iniciar a tela principal do
-     * sistema
+     * Se a configuracao estiver correta o metodo iniciar a tela principal do sistema
      *
      * @author willian
      * @param configuracaoGeral
@@ -109,8 +108,7 @@ public class MainServiceFTPCliente {
     private static void carregarTelaPrincipal(ConfiguracaoGeral configuracaoGeral) {
         if (configuracaoGeral.getDiretorioDeEnvio() == null || configuracaoGeral.getDiretorioDeRetorno() == null
                 || configuracaoGeral.getListaDeConfiguracoes() == null) {
-            JOptionPane.showMessageDialog(null, "ERRO: Ao carregar o arquivo de configuracao"
-                    + "", "ALERT", ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "ERRO: Ao carregar o arquivo de configuracao", "ALERT", ERROR_MESSAGE);
         } else {
             ViewHome viewHome = new ViewHome();
             viewHome.setVisible(true);
@@ -126,11 +124,9 @@ public class MainServiceFTPCliente {
             processarArquivoDeConfiguracao(arquivoDeConfiguracao);
             carregarTelaPrincipal(configuracaoGeral);
         } catch (IOException ex) {
-            JOptionPane.showMessageDialog(null, "ERRO: O programa já está em excecução ou a porta 9581 está ocupada"
-                    + "", "ALERT", ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "ERRO: O programa já está em excecução ou a porta 9581 está ocupada", "ALERT", ERROR_MESSAGE);
         } catch(ClassCastException ex){
-             JOptionPane.showMessageDialog(null, "ERRO: Erro de inicialização, verifique o XML de configuração!"
-                    + "", "ALERT", ERROR_MESSAGE); 
+             JOptionPane.showMessageDialog(null, "ERRO: Erro de inicialização, verifique o XML de configuração!", "ALERT", ERROR_MESSAGE); 
         }
 
     }

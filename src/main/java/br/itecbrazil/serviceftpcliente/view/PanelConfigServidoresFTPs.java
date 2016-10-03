@@ -63,7 +63,8 @@ public class PanelConfigServidoresFTPs extends javax.swing.JPanel {
         jButtonAdcionarConfig = new javax.swing.JButton();
         jButtonLimpar = new javax.swing.JButton();
 
-        setBackground(new java.awt.Color(159, 195, 251));
+        setBackground(new java.awt.Color(103, 197, 255));
+        setBorder(javax.swing.BorderFactory.createEtchedBorder());
         setAutoscrolls(true);
         setMaximumSize(new java.awt.Dimension(680, 225));
         setMinimumSize(new java.awt.Dimension(680, 225));
@@ -83,19 +84,27 @@ public class PanelConfigServidoresFTPs extends javax.swing.JPanel {
         });
         jScrollPaneConfigFTP.setViewportView(jTableConfigFTP);
 
-        jLabelTitulo.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
+        jLabelTitulo.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabelTitulo.setText("Dados servidor ativo");
 
+        jButtonAdcionarConfig.setBackground(new java.awt.Color(20, 217, 45));
         jButtonAdcionarConfig.setText("Adicionar Novas Configurações");
+        jButtonAdcionarConfig.setMaximumSize(new java.awt.Dimension(181, 30));
+        jButtonAdcionarConfig.setMinimumSize(new java.awt.Dimension(181, 30));
         jButtonAdcionarConfig.setName("jButtonAdcionarConfig"); // NOI18N
+        jButtonAdcionarConfig.setPreferredSize(new java.awt.Dimension(181, 30));
         jButtonAdcionarConfig.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonAdcionarConfigActionPerformed(evt);
             }
         });
 
+        jButtonLimpar.setBackground(new java.awt.Color(245, 213, 24));
         jButtonLimpar.setText("Limpar Configurações");
+        jButtonLimpar.setMaximumSize(new java.awt.Dimension(135, 30));
+        jButtonLimpar.setMinimumSize(new java.awt.Dimension(135, 30));
         jButtonLimpar.setName("jButtonLimpar"); // NOI18N
+        jButtonLimpar.setPreferredSize(new java.awt.Dimension(135, 30));
         jButtonLimpar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonLimparActionPerformed(evt);
@@ -109,13 +118,13 @@ public class PanelConfigServidoresFTPs extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPaneConfigFTP, javax.swing.GroupLayout.DEFAULT_SIZE, 660, Short.MAX_VALUE)
+                    .addComponent(jScrollPaneConfigFTP, javax.swing.GroupLayout.DEFAULT_SIZE, 656, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabelTitulo)
                         .addGap(26, 26, 26)
-                        .addComponent(jButtonAdcionarConfig)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jButtonLimpar)
+                        .addComponent(jButtonAdcionarConfig, javax.swing.GroupLayout.PREFERRED_SIZE, 215, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButtonLimpar, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -124,11 +133,11 @@ public class PanelConfigServidoresFTPs extends javax.swing.JPanel {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabelTitulo, javax.swing.GroupLayout.DEFAULT_SIZE, 26, Short.MAX_VALUE)
-                    .addComponent(jButtonAdcionarConfig)
-                    .addComponent(jButtonLimpar))
+                    .addComponent(jLabelTitulo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jButtonAdcionarConfig, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButtonLimpar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPaneConfigFTP, javax.swing.GroupLayout.DEFAULT_SIZE, 151, Short.MAX_VALUE)
+                .addComponent(jScrollPaneConfigFTP, javax.swing.GroupLayout.DEFAULT_SIZE, 144, Short.MAX_VALUE)
                 .addGap(25, 25, 25))
         );
     }// </editor-fold>//GEN-END:initComponents

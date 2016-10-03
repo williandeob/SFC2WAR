@@ -45,7 +45,7 @@ public class ConfiguracaoGeralTest {
      */
     @Test
     public void testIsPopulado() {
-        Config config = new Config("host", "usuario", "senha"); 
+        Config config = new Config("host", "usuario", "senha", "cnpj"); 
         List<Config> listaDeConfiguracoes = new ArrayList<Config>();
         listaDeConfiguracoes.add(config);
         
@@ -69,8 +69,7 @@ public class ConfiguracaoGeralTest {
      */
     @Test
     public void testBuscarConfiguracoPorCNPJ() {
-        Config config = new Config("host", "usuario", "senha");
-        config.setCnpj("cnpj");
+        Config config = new Config("host", "usuario", "senha", "cnpj");
         List<Config> listaDeConfiguracoes = new ArrayList<Config>();
         listaDeConfiguracoes.add(config);
         
@@ -84,7 +83,7 @@ public class ConfiguracaoGeralTest {
      */
     @Test
     public void testAdicionarNovasConfiguracoes() {
-        Config config = new Config("host", "usuario", "senha");
+        Config config = new Config("host", "usuario", "senha", "cnpj");
         config.setCnpj("cnpj");
         List<Config> listaDeConfiguracoes = new ArrayList<Config>();
         listaDeConfiguracoes.add(config);

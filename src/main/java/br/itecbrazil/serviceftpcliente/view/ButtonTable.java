@@ -5,6 +5,7 @@
  */
 package br.itecbrazil.serviceftpcliente.view;
 
+import java.awt.Color;
 import java.awt.Component;
 import javax.swing.JButton;
 import javax.swing.JTable;
@@ -36,7 +37,7 @@ public class ButtonTable extends JButton implements TableCellRenderer {
     public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
 
         setForeground(table.getForeground());
-        setBackground(UIManager.getColor("Button.background"));
+        setBackground(new Color(255,61,33));
 
         setText(getRotulo());
 

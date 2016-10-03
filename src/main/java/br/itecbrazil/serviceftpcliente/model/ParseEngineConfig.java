@@ -5,7 +5,6 @@
  */
 package br.itecbrazil.serviceftpcliente.model;
 
-import br.itecbrazil.serviceftpcliente.model.Config;
 import br.itecbrazil.serviceftpcliente.enums.EnumArquivos;
 import br.itecbrazil.serviceftpcliente.enums.EnumDiretorio;
 import com.thoughtworks.xstream.XStream;
@@ -68,8 +67,8 @@ public class ParseEngineConfig {
      * @param arquivoXML
      * @return listaDeConfiguracoesCarregadas se na deserializacao do arquivo
      * XML importado pelo usuário seja possivel recuperar a lista de Config, ou
-     * seja, cada configuracao de FTP e retorna null caso essa lista não for
-     * recuperada.
+     * seja, cada configuracao dos WebService dos fornecedores e retorna null 
+     * caso essa lista não for recuperada.
      */
     public List<Config> fromXMLListaDeConfiguracoesFTP(File arquivoXML) {
         BufferedReader input = null;

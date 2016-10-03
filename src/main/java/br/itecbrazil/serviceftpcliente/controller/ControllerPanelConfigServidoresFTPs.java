@@ -131,8 +131,7 @@ public class ControllerPanelConfigServidoresFTPs {
                     JOptionPane.showMessageDialog(getView(), "INFO: Configurações não adicionadas, pois possuem CNPJ já cadastrado", "ALERT", WARNING_MESSAGE);
                 } else {
                     processoDeAdicionarNovasConfiguracoes(listaDeNovasConfiguracoes);
-                    JOptionPane.showMessageDialog(getView(), "CONFIRM: Inclusão realizada com Sucesso"
-                            + "", "ALERT", INFORMATION_MESSAGE);
+                    JOptionPane.showMessageDialog(getView(), "CONFIRM: Inclusão realizada com sucesso", "ALERT", INFORMATION_MESSAGE);
                 }
 
             }
@@ -145,7 +144,7 @@ public class ControllerPanelConfigServidoresFTPs {
             parseEngine.toXMLArquivoDeConfiguracaoGeral(MainServiceFTPCliente.getConfiguracaoGeral());
             for (Config config : listaDeNovasConfiguracoes) {
                 getView().getModeloDaTabelaDeConfigFTP().addRow(new Object[]{config.getHost(), config.getCnpj(),
-                    "", ""});    
+                    config.getUsuario(), config.getSenha()});    
             }
         } catch (IOException ex) {
             Logger.getLogger(ControllerPanelConfigServidoresFTPs.class.getName()).log(Level.SEVERE, null, ex);

@@ -6,7 +6,6 @@
 package br.itecbrazil.serviceftpcliente.model;
 
 import br.itecbrazil.serviceftpcliente.MainServiceFTPCliente;
-import br.itecbrazil.serviceftpcliente.controller.ControllerDashBoardEnvioRetorno;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -29,22 +28,16 @@ import org.apache.log4j.Logger;
 public class ThreadRetorno implements Runnable {
 
     private Config config;
-    private ControllerDashBoardEnvioRetorno controller;
     private static Logger logger = Logger.getLogger("Busca");
     private static Logger loggerExceptionRetorno = Logger.getLogger("BuscaException");
     
 
-    public ThreadRetorno(Config config, ControllerDashBoardEnvioRetorno controller) {
+    public ThreadRetorno(Config config) {
         this.config = config;
-        this.controller = controller;
     }
 
     public Config getConfig() {
         return config;
-    }
-
-    public ControllerDashBoardEnvioRetorno getController() {
-        return controller;
     }
 
     @Override
@@ -70,7 +63,7 @@ public class ThreadRetorno implements Runnable {
          try {
 
                 HttpClient httpclient = new DefaultHttpClient();
-                HttpGet httpget = new HttpGet("http://pedido.2war.com.br/download/3");
+                HttpGet httpget = new HttpGet("http://"+config.getHost()+"/download/"+config.getUsuario());
                 httpget.setHeader("X-Requested-With", "XMLHttpRequest");
 
                 System.out.println("executing request " + httpget.getRequestLine());

@@ -9,7 +9,6 @@ import br.itecbrazil.serviceftpcliente.MainServiceFTPCliente;
 import java.io.File;
 import java.util.List;
 import org.apache.log4j.Logger;
-import br.itecbrazil.serviceftpcliente.controller.ControllerDashBoardEnvioRetorno;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.FileNotFoundException;
@@ -34,14 +33,12 @@ public class ThreadEnvio implements Runnable {
 
     private Config config;
     private StringBuilder coteudoFileTransfer;
-    private ControllerDashBoardEnvioRetorno controller;
     private static Logger logger = Logger.getLogger("Envio");
     private static Logger loggerExceptionEnvio = Logger.getLogger("EnvioException");
     
 
-    public ThreadEnvio(Config config, ControllerDashBoardEnvioRetorno controller) {
+    public ThreadEnvio(Config config) {
         this.config = config;
-        this.controller = controller;
         coteudoFileTransfer = new StringBuilder();
     }
 
@@ -51,10 +48,6 @@ public class ThreadEnvio implements Runnable {
     
      public StringBuilder getCoteudoFileTransfer() {
         return coteudoFileTransfer;
-    }
-
-    public ControllerDashBoardEnvioRetorno getController() {
-        return controller;
     }
 
     public static Logger getLogger() {
@@ -163,11 +156,11 @@ public class ThreadEnvio implements Runnable {
             logger.info("Enviando arquivo "+arquivo.getName()+". Thread: " + Thread.currentThread().getName());
             try {
                 HttpClient httpclient = new org.apache.http.impl.client.DefaultHttpClient();
-                HttpPost httppost = new HttpPost("http://pedido.2war.com.br/upload");
+                HttpPost httppost = new HttpPost("http://"+config.getHost()+"/upload");
                 httppost.setHeader("X-Requested-With", "XMLHttpRequest");
 
                 MultipartEntity mpEntity = new MultipartEntity();
-                mpEntity.addPart("id", new StringBody("3"));
+                mpEntity.addPart("id", new StringBody(config.getUsuario()));
                 mpEntity.addPart("arquivo", new FileBody(arquivo));
 
                 httppost.setEntity(mpEntity);

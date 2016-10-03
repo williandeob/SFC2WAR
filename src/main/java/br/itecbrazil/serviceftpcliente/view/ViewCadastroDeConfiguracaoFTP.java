@@ -7,8 +7,6 @@ import javax.swing.AbstractAction;
 import javax.swing.ActionMap;
 import javax.swing.InputMap;
 import javax.swing.JComponent;
-import javax.swing.JOptionPane;
-import static javax.swing.JOptionPane.WARNING_MESSAGE;
 import javax.swing.JTextField;
 import javax.swing.KeyStroke;
 
@@ -66,6 +64,26 @@ public class ViewCadastroDeConfiguracaoFTP extends javax.swing.JDialog {
         return jTextFieldDiretorioRetorno;
     }
 
+    public JTextField getjTextFieldCnpj() {
+        return jTextFieldCnpj;
+    }
+
+    public JTextField getjTextFieldHost() {
+        return jTextFieldHost;
+    }
+
+    public JTextField getjTextFieldPorta() {
+        return jTextFieldPorta;
+    }
+
+    public JTextField getjTextFieldSenha() {
+        return jTextFieldSenha;
+    }
+
+    public JTextField getjTextFieldUsuario() {
+        return jTextFieldUsuario;
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -81,11 +99,18 @@ public class ViewCadastroDeConfiguracaoFTP extends javax.swing.JDialog {
         jLabelDiretorioEnvio = new javax.swing.JLabel();
         jTextFieldDiretorioRetorno = new javax.swing.JTextField();
         jTextFieldDiretorioEnvio = new javax.swing.JTextField();
-        jLabelImportaXML = new javax.swing.JLabel();
-        jButtonImportarXML = new javax.swing.JButton();
-        jLabelPathArquivo = new javax.swing.JLabel();
         jButtonPesqDiretorioRetorno = new javax.swing.JButton();
         jButtonPesquisaDirEnvio = new javax.swing.JButton();
+        jLabelHost = new javax.swing.JLabel();
+        jTextFieldHost = new javax.swing.JTextField();
+        jLabelUsuario = new javax.swing.JLabel();
+        jTextFieldUsuario = new javax.swing.JTextField();
+        jTextFieldPorta = new javax.swing.JTextField();
+        jLabelPorta = new javax.swing.JLabel();
+        jTextFieldCnpj = new javax.swing.JTextField();
+        jLabelCnpj = new javax.swing.JLabel();
+        jTextFieldSenha = new javax.swing.JTextField();
+        jLabelSenha = new javax.swing.JLabel();
 
         setTitle("Cadastro de Configuração");
         setResizable(false);
@@ -113,25 +138,13 @@ public class ViewCadastroDeConfiguracaoFTP extends javax.swing.JDialog {
 
         jLabelDiretorioEnvio.setText("Diretório de Envio:");
 
-        jTextFieldDiretorioRetorno.setToolTipText("caminho completo do diretório de retorno");
+        jTextFieldDiretorioRetorno.setToolTipText("Caminho completo do diretório de retorno");
         jTextFieldDiretorioRetorno.setDisabledTextColor(new java.awt.Color(0, 0, 0));
         jTextFieldDiretorioRetorno.setEnabled(false);
 
-        jTextFieldDiretorioEnvio.setToolTipText("caminho completo do diretório de envio");
+        jTextFieldDiretorioEnvio.setToolTipText("Caminho completo do diretório de envio");
         jTextFieldDiretorioEnvio.setDisabledTextColor(new java.awt.Color(0, 0, 0));
         jTextFieldDiretorioEnvio.setEnabled(false);
-
-        jLabelImportaXML.setText("Importar XML do Servidor:");
-
-        jButtonImportarXML.setLabel("Importar");
-        jButtonImportarXML.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonImportarXMLActionPerformed(evt);
-            }
-        });
-
-        jLabelPathArquivo.setFont(new java.awt.Font("Tahoma", 2, 10)); // NOI18N
-        jLabelPathArquivo.setText(" ");
 
         jButtonPesqDiretorioRetorno.setText("...");
         jButtonPesqDiretorioRetorno.setToolTipText("Pesquisar diretório de retorno");
@@ -149,6 +162,35 @@ public class ViewCadastroDeConfiguracaoFTP extends javax.swing.JDialog {
             }
         });
 
+        jLabelHost.setText("Host");
+
+        jTextFieldHost.setToolTipText("Endereço serviço web");
+        jTextFieldHost.setDisabledTextColor(new java.awt.Color(0, 0, 0));
+
+        jLabelUsuario.setText("Usuário");
+
+        jTextFieldUsuario.setToolTipText("Login usuário sistema web");
+        jTextFieldUsuario.setDisabledTextColor(new java.awt.Color(0, 0, 0));
+
+        jTextFieldPorta.setEditable(false);
+        jTextFieldPorta.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        jTextFieldPorta.setText("8080");
+        jTextFieldPorta.setToolTipText("Porta serviço web");
+        jTextFieldPorta.setDisabledTextColor(new java.awt.Color(0, 0, 0));
+        jTextFieldPorta.setEnabled(false);
+
+        jLabelPorta.setText("Porta");
+
+        jTextFieldCnpj.setToolTipText("CNPJ");
+        jTextFieldCnpj.setDisabledTextColor(new java.awt.Color(0, 0, 0));
+
+        jLabelCnpj.setText("CNPJ");
+
+        jTextFieldSenha.setToolTipText("Senha usuário sistema web");
+        jTextFieldSenha.setDisabledTextColor(new java.awt.Color(0, 0, 0));
+
+        jLabelSenha.setText("Senha");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -161,22 +203,37 @@ public class ViewCadastroDeConfiguracaoFTP extends javax.swing.JDialog {
                         .addComponent(okButton, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(cancelButton))
-                    .addComponent(jLabelPathArquivo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jLabelDiretorioRetorno, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabelDiretorioEnvio)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabelImportaXML, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jButtonImportarXML))
                             .addComponent(jTextFieldDiretorioEnvio, javax.swing.GroupLayout.DEFAULT_SIZE, 400, Short.MAX_VALUE)
                             .addComponent(jTextFieldDiretorioRetorno, javax.swing.GroupLayout.DEFAULT_SIZE, 400, Short.MAX_VALUE))
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jButtonPesqDiretorioRetorno, javax.swing.GroupLayout.DEFAULT_SIZE, 67, Short.MAX_VALUE)
-                            .addComponent(jButtonPesquisaDirEnvio, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                            .addComponent(jButtonPesqDiretorioRetorno, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jButtonPesquisaDirEnvio, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(jTextFieldUsuario, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jTextFieldHost, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabelHost)
+                                    .addComponent(jLabelUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabelPorta)
+                                    .addComponent(jTextFieldPorta, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jTextFieldCnpj, javax.swing.GroupLayout.DEFAULT_SIZE, 221, Short.MAX_VALUE)
+                            .addComponent(jTextFieldSenha)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabelSenha, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabelCnpj))
+                                .addGap(0, 0, Short.MAX_VALUE)))))
                 .addContainerGap())
         );
 
@@ -194,25 +251,41 @@ public class ViewCadastroDeConfiguracaoFTP extends javax.swing.JDialog {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabelDiretorioRetorno)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jTextFieldDiretorioRetorno, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButtonPesqDiretorioRetorno, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButtonImportarXML, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabelImportaXML, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabelPathArquivo, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 9, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(jButtonPesqDiretorioRetorno, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jTextFieldDiretorioRetorno, javax.swing.GroupLayout.DEFAULT_SIZE, 30, Short.MAX_VALUE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabelHost)
+                                    .addComponent(jLabelCnpj))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jTextFieldHost, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabelPorta)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(jTextFieldPorta, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jTextFieldCnpj, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabelUsuario)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jTextFieldUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabelSenha)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jTextFieldSenha, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(cancelButton, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(okButton, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap())
+                .addContainerGap(23, Short.MAX_VALUE))
         );
 
         getRootPane().setDefaultButton(okButton);
-        jLabelPathArquivo.getAccessibleContext().setAccessibleName("");
-        jLabelPathArquivo.getAccessibleContext().setAccessibleDescription("");
 
         pack();
         setLocationRelativeTo(null);
@@ -220,12 +293,8 @@ public class ViewCadastroDeConfiguracaoFTP extends javax.swing.JDialog {
 
     private void okButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_okButtonActionPerformed
 
-        if (controllerCadastroConfiguracaoFTP.validarFormulario(jTextFieldDiretorioEnvio.getText(), jTextFieldDiretorioRetorno.getText())) {
-            if (controllerCadastroConfiguracaoFTP.getArquivoXMLDeImportacao().length() == 0) {
-                JOptionPane.showMessageDialog(this, "INFO: O arquivo de configuração não possui conteudo", "ALERT", WARNING_MESSAGE);
-            } else {
-                controllerCadastroConfiguracaoFTP.criarConfiguracaoFTP(jTextFieldDiretorioEnvio.getText(), jTextFieldDiretorioRetorno.getText());
-            }
+        if(controllerCadastroConfiguracaoFTP.validarFormulario()) {
+            controllerCadastroConfiguracaoFTP.criarConfiguracaoFTP();
         }
     }//GEN-LAST:event_okButtonActionPerformed
 
@@ -239,14 +308,6 @@ public class ViewCadastroDeConfiguracaoFTP extends javax.swing.JDialog {
     private void closeDialog(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_closeDialog
         doClose(RET_CANCEL);
     }//GEN-LAST:event_closeDialog
-
-    private void jButtonImportarXMLActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonImportarXMLActionPerformed
-
-        controllerCadastroConfiguracaoFTP.carregarXML();
-        if (controllerCadastroConfiguracaoFTP.getArquivoXMLDeImportacao() != null) {
-            jLabelPathArquivo.setText(controllerCadastroConfiguracaoFTP.getArquivoXMLDeImportacao().getAbsolutePath());
-        }
-    }//GEN-LAST:event_jButtonImportarXMLActionPerformed
 
     private void jButtonPesqDiretorioRetornoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonPesqDiretorioRetornoActionPerformed
         controllerCadastroConfiguracaoFTP.carregarDiretorio(getjTextFieldDiretorioRetorno());
@@ -265,15 +326,22 @@ public class ViewCadastroDeConfiguracaoFTP extends javax.swing.JDialog {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton cancelButton;
-    private javax.swing.JButton jButtonImportarXML;
     private javax.swing.JButton jButtonPesqDiretorioRetorno;
     private javax.swing.JButton jButtonPesquisaDirEnvio;
+    private javax.swing.JLabel jLabelCnpj;
     private javax.swing.JLabel jLabelDiretorioEnvio;
     private javax.swing.JLabel jLabelDiretorioRetorno;
-    private javax.swing.JLabel jLabelImportaXML;
-    private javax.swing.JLabel jLabelPathArquivo;
+    private javax.swing.JLabel jLabelHost;
+    private javax.swing.JLabel jLabelPorta;
+    private javax.swing.JLabel jLabelSenha;
+    private javax.swing.JLabel jLabelUsuario;
+    private javax.swing.JTextField jTextFieldCnpj;
     private javax.swing.JTextField jTextFieldDiretorioEnvio;
     private javax.swing.JTextField jTextFieldDiretorioRetorno;
+    private javax.swing.JTextField jTextFieldHost;
+    private javax.swing.JTextField jTextFieldPorta;
+    private javax.swing.JTextField jTextFieldSenha;
+    private javax.swing.JTextField jTextFieldUsuario;
     private javax.swing.JButton okButton;
     // End of variables declaration//GEN-END:variables
 

@@ -19,10 +19,11 @@ public class Config {
     public Config() {
     }
 
-    public Config(String host, String usuario, String senha) {
+    public Config(String host, String usuario, String senha, String cnpj) {
         this.host = host;
         this.usuario = usuario;
         this.senha = senha;
+        this.cnpj = cnpj;
     }
     
     public String getHost() {
