@@ -72,12 +72,13 @@ public class ThreadRetorno implements Runnable {
 
                 System.out.println(response.getStatusLine().getStatusCode());
                     
-                if(response.getStatusLine().getStatusCode() == 200){
+                if(response.getStatusLine().getStatusCode() == 200 && response.getFirstHeader("Content-Disposition")!= null){
                     String conteudo = inputStreamToString(resEntity.getContent());
                     String nomeArquivo = response.getFirstHeader("Content-Disposition").getValue().split("=")[1];
                     escreverArquivosNoDiretorioPassadoPorParametro(conteudo, MainServiceFTPCliente.getConfiguracaoGeral().getDiretorioDeRetorno(), nomeArquivo);
                 }else{  
-                    logger.info("Erro requisicao código: "+response.getStatusLine().getStatusCode());
+                    logger.info("Falha na busca do arquivo: Código: "+response.getStatusLine().getStatusCode()+" "
+                            + "Content-Disposition "+response.getFirstHeader("Content-Disposition"));
                 }
                     
             } catch (MalformedURLException ex) {
@@ -122,22 +123,25 @@ public class ThreadRetorno implements Runnable {
      * @return 
      */
      private String inputStreamToString(InputStream is) {
-        String line;
         StringBuilder total = new StringBuilder();
         BufferedReader rd = new BufferedReader(new InputStreamReader(is));
-        
         try {
-            while ((line = rd.readLine()) != null) {
+            String line = rd.readLine();
+            if(line.contains("\"success\":false")){
+                return "";
+            }else{
                 total.append(line);
                 total.append("\r\n");
             }
-        } catch (IOException e) {
-           
+                
+            while((line = rd.readLine()) != null){
+                total.append(line);
+                total.append("\r\n");
+            }
+        } catch (IOException ex) {
+            loggerExceptionRetorno.info(ex);
         }
-        
-        if(total.toString().contains("\"success\":false")){
-            return "";
-        }
+
         return total.toString();
     }
 
