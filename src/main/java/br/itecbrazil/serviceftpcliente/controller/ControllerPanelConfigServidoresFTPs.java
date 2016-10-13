@@ -12,6 +12,7 @@ import br.itecbrazil.serviceftpcliente.model.ScheduleEngine;
 import br.itecbrazil.serviceftpcliente.view.ButtonTable;
 import br.itecbrazil.serviceftpcliente.view.CellRenderer;
 import br.itecbrazil.serviceftpcliente.view.PanelConfigServidoresFTPs;
+import br.itecbrazil.serviceftpcliente.view.ViewEditarConfiguracaoServidor;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.io.IOException;
@@ -70,6 +71,9 @@ public class ControllerPanelConfigServidoresFTPs {
         switch (posicaoDaColuna) {
             case 4:
                 excluirConfiguracaoDeFtp((String) cnpjDaLinhaSelecionada, posicaoDaLinha);
+                break;
+            default :
+                editarConfiguracao(MainServiceFTPCliente.getConfiguracaoGeral().getListaDeConfiguracoes().get(posicaoDaLinha), posicaoDaLinha);
                 break;
         }
     }
@@ -171,5 +175,11 @@ public class ControllerPanelConfigServidoresFTPs {
         } finally{
             ScheduleEngine.prepararEIniciarScheduler();
         }
+    }
+
+    private void editarConfiguracao(Config config, int index) {
+        ViewEditarConfiguracaoServidor  viewEditarCinfiguracao = new ViewEditarConfiguracaoServidor(null, true, config, index, getView());
+        viewEditarCinfiguracao.setLocationRelativeTo(null);
+        viewEditarCinfiguracao.setVisible(true);
     }
 }

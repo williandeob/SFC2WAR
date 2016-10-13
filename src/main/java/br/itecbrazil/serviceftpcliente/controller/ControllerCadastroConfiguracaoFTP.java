@@ -141,6 +141,7 @@ public class ControllerCadastroConfiguracaoFTP {
         try {
             gerarArquivoXmlImpotacao(getFactoryConfig());
             List<Config> listaDeConfiguracaoAux = parseEngine.fromXMLListaDeConfiguracoesFTP(getArquivoXMLDeImportacao());
+            getArquivoXMLDeImportacao().delete();
             
             if(listaDeConfiguracaoAux == null || listaDeConfiguracaoAux.isEmpty()) {
                 JOptionPane.showMessageDialog(getView(), "ALERT: Não foi possivel carregar as informações de configuração", "ALERT", WARNING_MESSAGE);

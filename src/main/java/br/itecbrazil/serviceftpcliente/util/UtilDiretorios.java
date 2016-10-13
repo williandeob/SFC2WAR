@@ -5,8 +5,10 @@
  */
 package br.itecbrazil.serviceftpcliente.util;
 
+import br.itecbrazil.serviceftpcliente.enums.EnumArquivos;
 import br.itecbrazil.serviceftpcliente.enums.EnumDiretorio;
 import java.io.File;
+import java.io.FilenameFilter;
 import java.util.Collection;
 
 /**
@@ -57,5 +59,21 @@ public class UtilDiretorios {
             }
         }
     }
-
+    
+    public static String nomearArquivoASerGravadoSemSobrescrever(String nomeDiretorio, String nomeArquivo){
+       int contador = 0;
+       String[] nomeExtensao = nomeArquivo.split(".");
+       
+       while(isExists(nomeDiretorio, nomeArquivo)){
+            contador++;
+            nomeArquivo = nomeExtensao[0].concat("(").concat(""+contador).concat(")").concat(nomeExtensao[1]);
+       }
+       
+       return nomeArquivo;
+    }   
+    
+    public static boolean isExists(String nomeDiretorio, String nomeArquivo){
+       File arquivo = new File(nomeDiretorio, nomeArquivo);
+       return arquivo.exists();
+    }
 }
