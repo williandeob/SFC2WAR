@@ -9,6 +9,7 @@ import br.itecbrazil.serviceftpcliente.controller.ControllerViewHome;
 import br.itecbrazil.serviceftpcliente.model.ScheduleEngine;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
+import javax.swing.JPanel;
 
 /**
  *
@@ -36,6 +37,10 @@ public class ViewHome extends javax.swing.JFrame {
         return controller;
     }
 
+    public JPanel getjPanel_container() {
+        return jPanel_container;
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -128,23 +133,11 @@ public class ViewHome extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jMenuItem_diretorioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem_diretorioActionPerformed
-        jPanel_container.removeAll();
-        jPanel_container.repaint();
-        jPanel_container.revalidate();
-        
-        jPanel_container.add(panelConfigLocalDiretorios);
-        jPanel_container.repaint();
-        jPanel_container.revalidate();
+       getController().remontarMenu(panelConfigLocalDiretorios);
     }//GEN-LAST:event_jMenuItem_diretorioActionPerformed
 
     private void jMenuItem_servidorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem_servidorActionPerformed
-        jPanel_container.removeAll();
-        jPanel_container.repaint();
-        jPanel_container.revalidate();
-        
-        jPanel_container.add(panelConfigServidoresFTPs);
-        jPanel_container.repaint();
-        jPanel_container.revalidate();
+      getController().remontarMenu(panelConfigServidoresFTPs);
     }//GEN-LAST:event_jMenuItem_servidorActionPerformed
 
     /**

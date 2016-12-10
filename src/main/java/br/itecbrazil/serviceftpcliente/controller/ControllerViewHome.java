@@ -47,6 +47,13 @@ public class ControllerViewHome {
     public void setViewHome(ViewHome viewHome) {
         this.viewHome = viewHome;
     }
+    
+    public void remontarMenu(javax.swing.JPanel menu){
+        getViewHome().getjPanel_container().removeAll();
+        getViewHome().getjPanel_container().repaint();
+        getViewHome().getjPanel_container().revalidate();
+        getViewHome().getjPanel_container().add(menu);
+    };
 
     public void rodarServicoEmBackGround() {
         try {
