@@ -17,6 +17,8 @@ import javax.swing.JFrame;
 public class ViewHome extends javax.swing.JFrame {
 
     ControllerViewHome controller;
+    private PanelConfigLocalDiretorios panelConfigLocalDiretorios;
+    private PanelConfigServidoresFTPs panelConfigServidoresFTPs;
 
     /**
      * Creates new form ViewHome
@@ -24,10 +26,8 @@ public class ViewHome extends javax.swing.JFrame {
     public ViewHome() {
         controller = new ControllerViewHome(this);
         initComponents();
-        ImageIcon img = new ImageIcon(getClass().getResource("/two_war_2.png"));
-        setIconImage(img.getImage());
-        panelConfigLocalDiretorios.preencherPathDiretorios();
-        panelConfigServidoresFTPs.popularTabelaDeConfiguracoesFTPs();
+        panelConfigLocalDiretorios = new PanelConfigLocalDiretorios();
+        panelConfigServidoresFTPs = new PanelConfigServidoresFTPs();
         ScheduleEngine.prepararEIniciarScheduler();
         controller.rodarServicoEmBackGround();
 
@@ -35,14 +35,6 @@ public class ViewHome extends javax.swing.JFrame {
 
     public ControllerViewHome getController() {
         return controller;
-    }
-
-    public PanelConfigLocalDiretorios getPanelConfig() {
-        return this.panelConfigLocalDiretorios;
-    }
-
-    public PanelConfigServidoresFTPs getPanelConfigServidoresFTP() {
-        return panelConfigServidoresFTPs;
     }
 
     /**
@@ -55,13 +47,18 @@ public class ViewHome extends javax.swing.JFrame {
     private void initComponents() {
 
         jLabelRodape = new javax.swing.JLabel();
-        panelConfigLocalDiretorios = new br.itecbrazil.serviceftpcliente.view.PanelConfigLocalDiretorios();
-        panelConfigServidoresFTPs = new br.itecbrazil.serviceftpcliente.view.PanelConfigServidoresFTPs();
+        jPanel_container = new javax.swing.JPanel();
+        jMenuBar_barraDeMenu = new javax.swing.JMenuBar();
+        jMenu_configuracao = new javax.swing.JMenu();
+        jMenuItem_diretorio = new javax.swing.JMenuItem();
+        jMenuItem_servidor = new javax.swing.JMenuItem();
+        jMenu_logs = new javax.swing.JMenu();
 
         setTitle("HOME SERVICE FTP CLIENT");
         setBackground(new java.awt.Color(255, 255, 255));
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        setMaximumSize(new java.awt.Dimension(700, 647));
+        setExtendedState(JFrame.MAXIMIZED_BOTH);
+        setIconImage(new ImageIcon(getClass().getResource("/two_war_2.png")).getImage());
         setMinimumSize(new java.awt.Dimension(712, 630));
 
         jLabelRodape.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
@@ -69,33 +66,89 @@ public class ViewHome extends javax.swing.JFrame {
         jLabelRodape.setToolTipText("");
         jLabelRodape.setName("jLabelRodape"); // NOI18N
 
+        jPanel_container.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel_container.setLayout(new java.awt.CardLayout());
+
+        jMenuBar_barraDeMenu.setBackground(new java.awt.Color(255, 255, 255));
+
+        jMenu_configuracao.setText("Configuração");
+        jMenu_configuracao.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
+
+        jMenuItem_diretorio.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
+        jMenuItem_diretorio.setText("Diretórios");
+        jMenuItem_diretorio.setToolTipText("Diretório local de envio e recebimento de arquivos");
+        jMenuItem_diretorio.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem_diretorioActionPerformed(evt);
+            }
+        });
+        jMenu_configuracao.add(jMenuItem_diretorio);
+
+        jMenuItem_servidor.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
+        jMenuItem_servidor.setText("Servidor");
+        jMenuItem_servidor.setToolTipText("Configurando as informações do servidor e de usuário");
+        jMenuItem_servidor.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem_servidorActionPerformed(evt);
+            }
+        });
+        jMenu_configuracao.add(jMenuItem_servidor);
+
+        jMenuBar_barraDeMenu.add(jMenu_configuracao);
+
+        jMenu_logs.setText("Logs");
+        jMenu_logs.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
+        jMenuBar_barraDeMenu.add(jMenu_logs);
+
+        setJMenuBar(jMenuBar_barraDeMenu);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(panelConfigServidoresFTPs, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabelRodape)
-                    .addComponent(panelConfigLocalDiretorios, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel_container, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabelRodape)
+                        .addGap(0, 587, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(16, 16, 16)
-                .addComponent(panelConfigLocalDiretorios, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap()
+                .addComponent(jPanel_container, javax.swing.GroupLayout.DEFAULT_SIZE, 566, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(panelConfigServidoresFTPs, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 212, Short.MAX_VALUE)
-                .addComponent(jLabelRodape, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addComponent(jLabelRodape, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jMenuItem_diretorioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem_diretorioActionPerformed
+        jPanel_container.removeAll();
+        jPanel_container.repaint();
+        jPanel_container.revalidate();
+        
+        jPanel_container.add(panelConfigLocalDiretorios);
+        jPanel_container.repaint();
+        jPanel_container.revalidate();
+        panelConfigLocalDiretorios.preencherPathDiretorios();
+    }//GEN-LAST:event_jMenuItem_diretorioActionPerformed
+
+    private void jMenuItem_servidorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem_servidorActionPerformed
+        jPanel_container.removeAll();
+        jPanel_container.repaint();
+        jPanel_container.revalidate();
+        
+        jPanel_container.add(panelConfigServidoresFTPs);
+        jPanel_container.repaint();
+        jPanel_container.revalidate();
+        panelConfigServidoresFTPs.popularTabelaDeConfiguracoesFTPs();
+    }//GEN-LAST:event_jMenuItem_servidorActionPerformed
 
     /**
      * @param args the command line arguments
@@ -113,16 +166,9 @@ public class ViewHome extends javax.swing.JFrame {
                     break;
                 }
             }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(ViewHome.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(ViewHome.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(ViewHome.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(ViewHome.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
-        //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -136,7 +182,11 @@ public class ViewHome extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabelRodape;
-    private br.itecbrazil.serviceftpcliente.view.PanelConfigLocalDiretorios panelConfigLocalDiretorios;
-    private br.itecbrazil.serviceftpcliente.view.PanelConfigServidoresFTPs panelConfigServidoresFTPs;
+    private javax.swing.JMenuBar jMenuBar_barraDeMenu;
+    private javax.swing.JMenuItem jMenuItem_diretorio;
+    private javax.swing.JMenuItem jMenuItem_servidor;
+    private javax.swing.JMenu jMenu_configuracao;
+    private javax.swing.JMenu jMenu_logs;
+    private javax.swing.JPanel jPanel_container;
     // End of variables declaration//GEN-END:variables
 }
