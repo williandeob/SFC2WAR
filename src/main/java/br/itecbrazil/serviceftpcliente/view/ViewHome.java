@@ -7,8 +7,10 @@ package br.itecbrazil.serviceftpcliente.view;
 
 import br.itecbrazil.serviceftpcliente.controller.ControllerViewHome;
 import br.itecbrazil.serviceftpcliente.model.ScheduleEngine;
+import java.awt.BorderLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 /**
@@ -27,6 +29,10 @@ public class ViewHome extends javax.swing.JFrame {
     public ViewHome() {
         controller = new ControllerViewHome(this);
         initComponents();
+        ImageIcon imagemDeFundo = new ImageIcon(getClass().getResource("/link.jpg"));
+        JLabel labelImg = new JLabel("", imagemDeFundo, JLabel.CENTER);
+        jPanel_container.add(labelImg, BorderLayout.CENTER);
+        
         panelConfigLocalDiretorios = new PanelConfigLocalDiretorios();
         panelConfigServidoresFTPs = new PanelConfigServidoresFTPs();
         ScheduleEngine.prepararEIniciarScheduler();

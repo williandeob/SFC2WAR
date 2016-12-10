@@ -49,7 +49,7 @@ public class ControllerPanelConfigServidoresFTPs {
         getView().getModeloDaTabelaDeConfigFTP().addColumn("SENHA");
         getView().getModeloDaTabelaDeConfigFTP().addColumn("EXCLUIR");
         getView().getjTableConfigFTP().getTableHeader().setPreferredSize(new Dimension(getView().getjTableConfigFTP().getWidth(), 25));
-        getView().getjTableConfigFTP().getTableHeader().setFont(new Font("Tahoma", Font.BOLD, 11));
+        getView().getjTableConfigFTP().getTableHeader().setFont(new Font("Verdana", Font.TRUETYPE_FONT, 12));
 
         for (Config config : MainServiceFTPCliente.getConfiguracaoGeral().getListaDeConfiguracoes()) {
             getView().getModeloDaTabelaDeConfigFTP().addRow(new Object[]{config.getHost(), config.getCnpj(),

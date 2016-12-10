@@ -7,6 +7,7 @@ package br.itecbrazil.serviceftpcliente.view;
 
 import java.awt.Color;
 import java.awt.Component;
+import java.awt.Font;
 import javax.swing.JButton;
 import javax.swing.JTable;
 import javax.swing.UIManager;
@@ -37,7 +38,8 @@ public class ButtonTable extends JButton implements TableCellRenderer {
     public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
 
         setForeground(table.getForeground());
-        setBackground(new Color(255,61,33));
+        setBackground(new Color(205,205,205));
+        setFont(new Font("Verdana", Font.TRUETYPE_FONT, 12));
 
         setText(getRotulo());
 

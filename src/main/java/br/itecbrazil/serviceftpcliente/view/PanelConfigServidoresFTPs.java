@@ -64,15 +64,18 @@ public class PanelConfigServidoresFTPs extends javax.swing.JPanel {
         jButtonAdcionarConfig = new javax.swing.JButton();
         jButtonLimpar = new javax.swing.JButton();
 
-        setBackground(new java.awt.Color(103, 197, 255));
-        setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        setBackground(new java.awt.Color(0, 126, 244));
+        setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED, new java.awt.Color(0, 0, 0), new java.awt.Color(0, 0, 0), new java.awt.Color(0, 0, 0), new java.awt.Color(0, 0, 0)));
         setAutoscrolls(true);
         setMaximumSize(new java.awt.Dimension(680, 225));
         setMinimumSize(new java.awt.Dimension(680, 225));
         setName("JPanelConfigFTP"); // NOI18N
         setPreferredSize(new java.awt.Dimension(680, 225));
 
+        jTableConfigFTP.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED, new java.awt.Color(0, 0, 0), new java.awt.Color(0, 0, 0), new java.awt.Color(0, 0, 0), new java.awt.Color(0, 0, 0)));
+        jTableConfigFTP.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
         jTableConfigFTP.setModel(modeloDaTabelaDeConfigFTP);
+        jTableConfigFTP.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jTableConfigFTP.setMaximumSize(new java.awt.Dimension(598, 100));
         jTableConfigFTP.setMinimumSize(new java.awt.Dimension(598, 100));
         jTableConfigFTP.setName("jTableConfigFTP"); // NOI18N
@@ -86,10 +89,13 @@ public class PanelConfigServidoresFTPs extends javax.swing.JPanel {
         jScrollPaneConfigFTP.setViewportView(jTableConfigFTP);
 
         jLabelTitulo.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLabelTitulo.setForeground(new java.awt.Color(255, 255, 255));
         jLabelTitulo.setText("Dados servidor ativo");
 
-        jButtonAdcionarConfig.setBackground(new java.awt.Color(20, 217, 45));
+        jButtonAdcionarConfig.setBackground(new java.awt.Color(255, 255, 255));
+        jButtonAdcionarConfig.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
         jButtonAdcionarConfig.setText("Adicionar Novas Configurações");
+        jButtonAdcionarConfig.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jButtonAdcionarConfig.setMaximumSize(new java.awt.Dimension(181, 30));
         jButtonAdcionarConfig.setMinimumSize(new java.awt.Dimension(181, 30));
         jButtonAdcionarConfig.setName("jButtonAdcionarConfig"); // NOI18N
@@ -100,8 +106,10 @@ public class PanelConfigServidoresFTPs extends javax.swing.JPanel {
             }
         });
 
-        jButtonLimpar.setBackground(new java.awt.Color(245, 213, 24));
+        jButtonLimpar.setBackground(new java.awt.Color(255, 255, 255));
+        jButtonLimpar.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
         jButtonLimpar.setText("Limpar Configurações");
+        jButtonLimpar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jButtonLimpar.setMaximumSize(new java.awt.Dimension(135, 30));
         jButtonLimpar.setMinimumSize(new java.awt.Dimension(135, 30));
         jButtonLimpar.setName("jButtonLimpar"); // NOI18N
@@ -123,8 +131,8 @@ public class PanelConfigServidoresFTPs extends javax.swing.JPanel {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabelTitulo)
                         .addGap(26, 26, 26)
-                        .addComponent(jButtonAdcionarConfig, javax.swing.GroupLayout.PREFERRED_SIZE, 215, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButtonAdcionarConfig, javax.swing.GroupLayout.PREFERRED_SIZE, 235, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jButtonLimpar, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())

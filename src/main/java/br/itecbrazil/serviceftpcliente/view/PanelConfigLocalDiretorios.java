@@ -58,55 +58,68 @@ public class PanelConfigLocalDiretorios extends javax.swing.JPanel {
         jButtonEditDirRetorno = new javax.swing.JButton();
         jButtonEditDirEnvio = new javax.swing.JButton();
 
-        setBackground(new java.awt.Color(103, 197, 255));
-        setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        setBackground(new java.awt.Color(0, 126, 244));
+        setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED, new java.awt.Color(0, 0, 0), new java.awt.Color(0, 0, 0), new java.awt.Color(0, 0, 0), new java.awt.Color(0, 0, 0)));
         setMaximumSize(new java.awt.Dimension(680, 162));
         setMinimumSize(new java.awt.Dimension(680, 162));
         setPreferredSize(new java.awt.Dimension(680, 162));
 
         jLabelTitulo.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLabelTitulo.setForeground(new java.awt.Color(255, 255, 255));
         jLabelTitulo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabelTitulo.setText("Configuração local de diretórios");
         jLabelTitulo.setName("jLabelTitulo"); // NOI18N
 
+        jLabelDirEnvio.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
+        jLabelDirEnvio.setForeground(new java.awt.Color(255, 255, 255));
         jLabelDirEnvio.setText("Diretório de envio:");
 
+        jLabelDirRetorno.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
+        jLabelDirRetorno.setForeground(new java.awt.Color(255, 255, 255));
         jLabelDirRetorno.setText("Diretório de retorno:");
 
         jTextFieldDirEnvio.setEditable(false);
         jTextFieldDirEnvio.setBackground(new java.awt.Color(255, 255, 255));
+        jTextFieldDirEnvio.setFont(new java.awt.Font("Verdana", 0, 11)); // NOI18N
         jTextFieldDirEnvio.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 204), 1, true));
-        jTextFieldDirEnvio.setMaximumSize(new java.awt.Dimension(4, 18));
+        jTextFieldDirEnvio.setMaximumSize(new java.awt.Dimension(700, 30));
+        jTextFieldDirEnvio.setMinimumSize(new java.awt.Dimension(517, 30));
         jTextFieldDirEnvio.setName("jTextFieldDirEnvio"); // NOI18N
+        jTextFieldDirEnvio.setPreferredSize(new java.awt.Dimension(517, 30));
 
         jTextFieldDirRetorno.setEditable(false);
         jTextFieldDirRetorno.setBackground(new java.awt.Color(255, 255, 255));
+        jTextFieldDirRetorno.setFont(new java.awt.Font("Verdana", 0, 11)); // NOI18N
         jTextFieldDirRetorno.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 204), 1, true));
-        jTextFieldDirRetorno.setMaximumSize(new java.awt.Dimension(2, 30));
-        jTextFieldDirRetorno.setMinimumSize(new java.awt.Dimension(2, 30));
+        jTextFieldDirRetorno.setMaximumSize(new java.awt.Dimension(700, 30));
+        jTextFieldDirRetorno.setMinimumSize(new java.awt.Dimension(517, 30));
         jTextFieldDirRetorno.setName("jTextFieldDirRetorno"); // NOI18N
+        jTextFieldDirRetorno.setPreferredSize(new java.awt.Dimension(517, 30));
 
-        jButtonEditDirRetorno.setBackground(new java.awt.Color(20, 217, 45));
+        jButtonEditDirRetorno.setBackground(new java.awt.Color(255, 255, 255));
+        jButtonEditDirRetorno.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
         jButtonEditDirRetorno.setText("Editar Diretório");
         jButtonEditDirRetorno.setToolTipText("Editar diretório de retorno");
         jButtonEditDirRetorno.setAlignmentY(0.0F);
-        jButtonEditDirRetorno.setMaximumSize(new java.awt.Dimension(105, 30));
-        jButtonEditDirRetorno.setMinimumSize(new java.awt.Dimension(105, 30));
-        jButtonEditDirRetorno.setPreferredSize(new java.awt.Dimension(105, 30));
+        jButtonEditDirRetorno.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jButtonEditDirRetorno.setMaximumSize(new java.awt.Dimension(129, 30));
+        jButtonEditDirRetorno.setMinimumSize(new java.awt.Dimension(129, 30));
+        jButtonEditDirRetorno.setPreferredSize(new java.awt.Dimension(129, 30));
         jButtonEditDirRetorno.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonEditDirRetornoActionPerformed(evt);
             }
         });
 
-        jButtonEditDirEnvio.setBackground(new java.awt.Color(20, 217, 45));
+        jButtonEditDirEnvio.setBackground(new java.awt.Color(255, 255, 255));
+        jButtonEditDirEnvio.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
         jButtonEditDirEnvio.setText("Editar Diretório");
         jButtonEditDirEnvio.setToolTipText("Editar diretório de envio");
         jButtonEditDirEnvio.setAlignmentY(0.0F);
-        jButtonEditDirEnvio.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        jButtonEditDirEnvio.setMaximumSize(new java.awt.Dimension(105, 30));
-        jButtonEditDirEnvio.setMinimumSize(new java.awt.Dimension(105, 30));
-        jButtonEditDirEnvio.setPreferredSize(new java.awt.Dimension(105, 30));
+        jButtonEditDirEnvio.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jButtonEditDirEnvio.setMaximumSize(new java.awt.Dimension(129, 30));
+        jButtonEditDirEnvio.setMinimumSize(new java.awt.Dimension(129, 30));
+        jButtonEditDirEnvio.setPreferredSize(new java.awt.Dimension(129, 30));
         jButtonEditDirEnvio.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonEditDirEnvioActionPerformed(evt);
@@ -121,22 +134,22 @@ public class PanelConfigLocalDiretorios extends javax.swing.JPanel {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabelDirRetorno)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jTextFieldDirRetorno, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jTextFieldDirEnvio, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jButtonEditDirEnvio, javax.swing.GroupLayout.DEFAULT_SIZE, 120, Short.MAX_VALUE)
-                            .addComponent(jButtonEditDirRetorno, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGap(29, 29, 29))
-                    .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabelDirEnvio)
                             .addComponent(jLabelTitulo))
-                        .addGap(0, 418, Short.MAX_VALUE))))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabelDirRetorno)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jTextFieldDirRetorno, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jTextFieldDirEnvio, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addGap(8, 8, 8)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(jButtonEditDirRetorno, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jButtonEditDirEnvio, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                        .addGap(12, 12, 12))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -146,16 +159,16 @@ public class PanelConfigLocalDiretorios extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabelDirEnvio)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jButtonEditDirEnvio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextFieldDirEnvio, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jTextFieldDirEnvio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButtonEditDirEnvio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabelDirRetorno)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jTextFieldDirRetorno, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButtonEditDirRetorno, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jTextFieldDirRetorno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButtonEditDirRetorno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(14, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
