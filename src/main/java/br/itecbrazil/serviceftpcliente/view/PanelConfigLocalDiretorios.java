@@ -22,6 +22,7 @@ public class PanelConfigLocalDiretorios extends javax.swing.JPanel {
     public PanelConfigLocalDiretorios() {
         initComponents();
         controller = new ControllerPanelConfigLocalDiretorios(this);
+        preencherPathDiretorios();
     }
 
     public ControllerPanelConfigLocalDiretorios getController() {

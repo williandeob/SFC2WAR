@@ -30,7 +30,6 @@ public class ViewHome extends javax.swing.JFrame {
         panelConfigServidoresFTPs = new PanelConfigServidoresFTPs();
         ScheduleEngine.prepararEIniciarScheduler();
         controller.rodarServicoEmBackGround();
-
     }
 
     public ControllerViewHome getController() {
@@ -136,7 +135,6 @@ public class ViewHome extends javax.swing.JFrame {
         jPanel_container.add(panelConfigLocalDiretorios);
         jPanel_container.repaint();
         jPanel_container.revalidate();
-        panelConfigLocalDiretorios.preencherPathDiretorios();
     }//GEN-LAST:event_jMenuItem_diretorioActionPerformed
 
     private void jMenuItem_servidorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem_servidorActionPerformed
@@ -147,7 +145,6 @@ public class ViewHome extends javax.swing.JFrame {
         jPanel_container.add(panelConfigServidoresFTPs);
         jPanel_container.repaint();
         jPanel_container.revalidate();
-        panelConfigServidoresFTPs.popularTabelaDeConfiguracoesFTPs();
     }//GEN-LAST:event_jMenuItem_servidorActionPerformed
 
     /**

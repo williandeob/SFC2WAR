@@ -30,6 +30,7 @@ public class PanelConfigServidoresFTPs extends javax.swing.JPanel {
         };
         initComponents();
         controller = new ControllerPanelConfigServidoresFTPs(this);
+        popularTabelaDeConfiguracoesFTPs();
     }
 
     public JTable getjTableConfigFTP() {
