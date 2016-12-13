@@ -6,6 +6,7 @@
 package br.itecbrazil.serviceftpcliente;
 
 import br.itecbrazil.serviceftpcliente.enums.EnumArquivos;
+import br.itecbrazil.serviceftpcliente.enums.EnumDiretorio;
 import br.itecbrazil.serviceftpcliente.model.ConfiguracaoGeral;
 import br.itecbrazil.serviceftpcliente.model.ParseEngineConfig;
 import br.itecbrazil.serviceftpcliente.util.UtilDiretorios;
@@ -29,13 +30,20 @@ public class MainServiceFTPCliente {
     private static ConfiguracaoGeral configuracaoGeral;
     private static File diretoriodeConfiguracao;
     private static File arquivoDeConfiguracao;
-    
-    
-    private MainServiceFTPCliente(){
-        
-    }
-            
 
+    private static void configurarBancoDeDados() throws IOException {
+        if(!UtilDiretorios.isExists(EnumDiretorio.Configuracao.getDiretorio(), EnumArquivos.Envio.getNomeDoArquivo())){
+            File file = new File(EnumDiretorio.Configuracao.getDiretorio().concat(File.separator).concat(EnumArquivos.Envio.getNomeDoArquivo()));
+            file.createNewFile();
+        }
+        if(!UtilDiretorios.isExists(EnumDiretorio.Configuracao.getDiretorio(), EnumArquivos.Retorno.getNomeDoArquivo())){
+            File file = new File(EnumDiretorio.Configuracao.getDiretorio().concat(File.separator).concat(EnumArquivos.Retorno.getNomeDoArquivo()));
+            file.createNewFile();
+        }
+    }
+    
+    private MainServiceFTPCliente(){}
+            
     /**
      * Metodo responsavel por criar ou carregar o arquivo de configuracao dos
      * servidores FTPs.
@@ -121,10 +129,11 @@ public class MainServiceFTPCliente {
 
             configuracaoGeral = new ConfiguracaoGeral();
             configurarDiretorioeArquivoDeConfiguracao();
+            configurarBancoDeDados();
             processarArquivoDeConfiguracao(arquivoDeConfiguracao);
             carregarTelaPrincipal(configuracaoGeral);
         } catch (IOException ex) {
-            JOptionPane.showMessageDialog(null, "ERRO: O programa já está em excecução ou a porta 9581 está ocupada", "ALERT", ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "ERRO: O programa ou já se encontra em excecução na porta 9581 ou houve falha de configuração!", "ALERT", ERROR_MESSAGE);
         } catch(ClassCastException ex){
              JOptionPane.showMessageDialog(null, "ERRO: Erro de inicialização, verifique o XML de configuração!", "ALERT", ERROR_MESSAGE); 
         }

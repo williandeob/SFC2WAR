@@ -14,10 +14,14 @@ package br.itecbrazil.serviceftpcliente.enums;
 public enum EnumArquivos {
 
     /**
-     * Documento que contem um String JSON com os objetos Config
-     * que armazenam as configuracoes do FTP.
+     * Configuracao documento que contem um String JSON com os objetos Config que armazenam as configuracoes do FTP.
+     * Envio documento que contem a lista de arquivos enviados pelo sistema
+     * Retorno documento que contem a lista de arquivos recebidos pelo sistema
      */
-    Configuracao("config.xml");
+    Configuracao("config.xml"),
+    Envio("envio.json"),
+    Retorno("retorno.json");
+    
     String nomeDoArquivo;
 
     private EnumArquivos(String nomeDoArquivo) {
@@ -27,7 +31,5 @@ public enum EnumArquivos {
     public String getNomeDoArquivo() {
         return nomeDoArquivo;
     }
-    
-    
-    
+
 }

@@ -5,10 +5,8 @@
  */
 package br.itecbrazil.serviceftpcliente.util;
 
-import br.itecbrazil.serviceftpcliente.enums.EnumArquivos;
 import br.itecbrazil.serviceftpcliente.enums.EnumDiretorio;
 import java.io.File;
-import java.io.FilenameFilter;
 import java.util.Collection;
 
 /**

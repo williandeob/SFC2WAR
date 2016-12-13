@@ -22,6 +22,7 @@ public class ViewHome extends javax.swing.JFrame {
     ControllerViewHome controller;
     private PanelConfigLocalDiretorios panelConfigLocalDiretorios;
     private PanelConfigServidoresFTPs panelConfigServidoresFTPs;
+    private PanelAuditoria panelAuditoria;
 
     /**
      * Creates new form ViewHome
@@ -35,6 +36,7 @@ public class ViewHome extends javax.swing.JFrame {
         
         panelConfigLocalDiretorios = new PanelConfigLocalDiretorios();
         panelConfigServidoresFTPs = new PanelConfigServidoresFTPs();
+        panelAuditoria = new PanelAuditoria();
         ScheduleEngine.prepararEIniciarScheduler();
         controller.rodarServicoEmBackGround();
     }
@@ -63,6 +65,7 @@ public class ViewHome extends javax.swing.JFrame {
         jMenuItem_diretorio = new javax.swing.JMenuItem();
         jMenuItem_servidor = new javax.swing.JMenuItem();
         jMenu_logs = new javax.swing.JMenu();
+        jMenuItem_auditoria = new javax.swing.JMenuItem();
 
         setTitle("HOME SERVICE FTP CLIENT");
         setBackground(new java.awt.Color(255, 255, 255));
@@ -108,6 +111,17 @@ public class ViewHome extends javax.swing.JFrame {
 
         jMenu_logs.setText("Logs");
         jMenu_logs.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
+
+        jMenuItem_auditoria.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
+        jMenuItem_auditoria.setText("Auditoria");
+        jMenuItem_auditoria.setToolTipText("Auditoria dos arquivos enviados e recebidos");
+        jMenuItem_auditoria.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem_auditoriaActionPerformed(evt);
+            }
+        });
+        jMenu_logs.add(jMenuItem_auditoria);
+
         jMenuBar_barraDeMenu.add(jMenu_logs);
 
         setJMenuBar(jMenuBar_barraDeMenu);
@@ -146,6 +160,10 @@ public class ViewHome extends javax.swing.JFrame {
       getController().remontarMenu(panelConfigServidoresFTPs);
     }//GEN-LAST:event_jMenuItem_servidorActionPerformed
 
+    private void jMenuItem_auditoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem_auditoriaActionPerformed
+      getController().remontarMenu(panelAuditoria);
+    }//GEN-LAST:event_jMenuItem_auditoriaActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -179,6 +197,7 @@ public class ViewHome extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabelRodape;
     private javax.swing.JMenuBar jMenuBar_barraDeMenu;
+    private javax.swing.JMenuItem jMenuItem_auditoria;
     private javax.swing.JMenuItem jMenuItem_diretorio;
     private javax.swing.JMenuItem jMenuItem_servidor;
     private javax.swing.JMenu jMenu_configuracao;
