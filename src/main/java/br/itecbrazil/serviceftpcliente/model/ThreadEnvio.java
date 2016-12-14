@@ -191,6 +191,9 @@ public class ThreadEnvio implements Runnable {
         try {
             
             ArrayList<Arquivo> arquivosEnviados = (ArrayList<Arquivo>) arquivoDao.getArquivos(EnumTipoArquivo.Envio.getTipoDoArquivo());
+            if(arquivosEnviados == null)
+                arquivosEnviados = new ArrayList<>();
+            
             Arquivo arquivoInserido = new Arquivo(EnumTipoArquivo.Envio.getTipoDoArquivo(), arquivo.getName(), new Date());
             arquivosEnviados.add(arquivoInserido);
             arquivoDao.save(EnumTipoArquivo.Envio.getTipoDoArquivo(), arquivosEnviados);

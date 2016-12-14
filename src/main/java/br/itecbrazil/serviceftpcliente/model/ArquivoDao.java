@@ -9,6 +9,8 @@ import br.itecbrazil.serviceftpcliente.enums.EnumArquivos;
 import br.itecbrazil.serviceftpcliente.enums.EnumDiretorio;
 import br.itecbrazil.serviceftpcliente.enums.EnumTipoArquivo;
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -39,14 +41,14 @@ public class ArquivoDao {
     }
     
     public void save(int tipo, ArrayList<Arquivo> arquivos) throws IOException{
-        Gson gson = new Gson();
+        Gson gson = new GsonBuilder().setPrettyPrinting().create();
         File arquivo;
         if(tipo == EnumTipoArquivo.Envio.getTipoDoArquivo()){
-            arquivo = new File(EnumDiretorio.Configuracao.getDiretorio().concat(EnumArquivos.Envio.getNomeDoArquivo()));
-            gson.toJson(arquivos, new FileWriter(arquivo));
+            arquivo = new File(EnumDiretorio.Configuracao.getDiretorio().concat(File.separator).concat(EnumArquivos.Envio.getNomeDoArquivo()));
+            persistir(gson.toJson(arquivos), arquivo);
         }else if (tipo == EnumTipoArquivo.Retorno.getTipoDoArquivo()){
-            arquivo = new File(EnumDiretorio.Configuracao.getDiretorio().concat(EnumArquivos.Retorno.getNomeDoArquivo()));
-            gson.toJson(arquivos, new FileWriter(arquivo));
+            arquivo = new File(EnumDiretorio.Configuracao.getDiretorio().concat(File.separator).concat(EnumArquivos.Retorno.getNomeDoArquivo()));
+            persistir(gson.toJson(arquivos), arquivo);
         }else{
             throw new IllegalArgumentException("Tipo de arquivo "+tipo+" inválido");
         }
@@ -66,6 +68,13 @@ public class ArquivoDao {
         Gson gson = new Gson();
         ArrayList<Arquivo> arquivosEnviados = gson.fromJson(fr, ArrayList.class);
         return arquivosEnviados;
+    }
+
+    private void persistir(String conteudo, File arquivo) throws IOException {
+        BufferedWriter buffWrite = new BufferedWriter(new FileWriter(arquivo));
+        buffWrite.write(conteudo);
+        buffWrite.flush();
+        buffWrite.close();
     }
 
 }

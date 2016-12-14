@@ -54,6 +54,7 @@ public class ThreadRetorno implements Runnable {
             donwload();
         }
         logger.info("Thread " + Thread.currentThread().getName() + " conectada ao fornecedor de cnpj " + getConfig().getCnpj() + " finalizada");
+        
     }
 
     /**
@@ -156,6 +157,9 @@ public class ThreadRetorno implements Runnable {
         try {
             
             ArrayList<Arquivo> arquivosRetornados = (ArrayList<Arquivo>) arquivoDao.getArquivos(EnumTipoArquivo.Retorno.getTipoDoArquivo());
+            if(arquivosRetornados == null)
+                arquivosRetornados = new ArrayList<>();
+            
             Arquivo arquivoInserido = new Arquivo(EnumTipoArquivo.Retorno.getTipoDoArquivo(), nomeArquivo, new Date());
             arquivosRetornados.add(arquivoInserido);
             arquivoDao.save(EnumTipoArquivo.Retorno.getTipoDoArquivo(), arquivosRetornados);
