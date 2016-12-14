@@ -5,8 +5,6 @@
  */
 package br.itecbrazil.serviceftpcliente.view;
 
-import javax.swing.JComponent;
-
 /**
  *
  * @author willian
@@ -34,12 +32,15 @@ public class PanelAuditoria extends javax.swing.JPanel {
         jTabbedPanel_abas = new javax.swing.JTabbedPane();
 
         setBackground(new java.awt.Color(0, 126, 244));
+        setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED, new java.awt.Color(0, 0, 0), new java.awt.Color(0, 0, 0), new java.awt.Color(0, 0, 0), new java.awt.Color(0, 0, 0)));
 
         jLabel_titulo.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel_titulo.setForeground(java.awt.Color.white);
         jLabel_titulo.setText("Auditoria de envio e retorno");
 
-        jTabbedPanel_abas.setBackground(new java.awt.Color(255, 255, 255));
+        jTabbedPanel_abas.setBackground(new java.awt.Color(0, 126, 244));
+        jTabbedPanel_abas.setFont(new java.awt.Font("Verdana", 1, 12)); // NOI18N
+        jTabbedPanel_abas.setOpaque(true);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -50,7 +51,7 @@ public class PanelAuditoria extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel_titulo)
-                        .addGap(0, 439, Short.MAX_VALUE))
+                        .addGap(0, 435, Short.MAX_VALUE))
                     .addComponent(jTabbedPanel_abas))
                 .addContainerGap())
         );
@@ -60,7 +61,7 @@ public class PanelAuditoria extends javax.swing.JPanel {
                 .addContainerGap()
                 .addComponent(jLabel_titulo, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTabbedPanel_abas, javax.swing.GroupLayout.DEFAULT_SIZE, 479, Short.MAX_VALUE)
+                .addComponent(jTabbedPanel_abas, javax.swing.GroupLayout.DEFAULT_SIZE, 475, Short.MAX_VALUE)
                 .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -74,9 +75,10 @@ public class PanelAuditoria extends javax.swing.JPanel {
     private void criarTabs() {
         PanelAuditoriaEnvio panelEnvio = new PanelAuditoriaEnvio();
         PanelAuditoriaRetorno panelRetorno = new PanelAuditoriaRetorno();
-        jTabbedPanel_abas.addTab("Envio", null, panelEnvio,
-                  "Arquivos de envio");
-        jTabbedPanel_abas.addTab("Retorno", null, panelRetorno,
-                  "Arquivos de retorno");
+        jTabbedPanel_abas.addTab("Arquivos de envio", null, panelEnvio,
+                  "Auditar arquivos enviados");
+        jTabbedPanel_abas.addTab("Arquivos de retorno", null, panelRetorno,
+                  "Auditar arquivos retornados");
     }
+
 }

@@ -6,6 +6,7 @@
 package br.itecbrazil.serviceftpcliente.model;
 
 import br.itecbrazil.serviceftpcliente.MainServiceFTPCliente;
+import br.itecbrazil.serviceftpcliente.enums.EnumTipoArquivo;
 import java.io.File;
 import java.util.List;
 import org.apache.log4j.Logger;
@@ -17,6 +18,8 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.logging.Level;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
@@ -170,6 +173,7 @@ public class ThreadEnvio implements Runnable {
                 
                 if(response.getStatusLine().getStatusCode() == 200){
                     logger.info("Arquivo arquivo "+arquivo.getName()+" enviado com sucesso. Thread: " + Thread.currentThread().getName());
+                    atualizarDadoDeEnvio(arquivo);
                     arquivo.delete();
                     logger.info("Arquivo deletado "+arquivo.getName()+" do diretorio de envio. Thread: " + Thread.currentThread().getName());
                 }
@@ -179,6 +183,23 @@ public class ThreadEnvio implements Runnable {
             } catch (IOException ex) {
                 loggerExceptionEnvio.info(ex);
             }         
+        }
+    }
+
+    private void atualizarDadoDeEnvio(File arquivo) {
+        ArquivoDao arquivoDao = new ArquivoDao();
+        try {
+            
+            ArrayList<Arquivo> arquivosEnviados = (ArrayList<Arquivo>) arquivoDao.getArquivos(EnumTipoArquivo.Envio.getTipoDoArquivo());
+            Arquivo arquivoInserido = new Arquivo(EnumTipoArquivo.Envio.getTipoDoArquivo(), arquivo.getName(), new Date());
+            arquivosEnviados.add(arquivoInserido);
+            arquivoDao.save(EnumTipoArquivo.Envio.getTipoDoArquivo(), arquivosEnviados);
+            logger.info("Arquivo"+arquivo.getName()+" enviado gravado com sucesso. Thread: " + Thread.currentThread().getName());
+            
+        } catch (FileNotFoundException ex) {
+            java.util.logging.Logger.getLogger(ThreadEnvio.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            java.util.logging.Logger.getLogger(ThreadEnvio.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 }

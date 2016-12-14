@@ -6,14 +6,19 @@
 package br.itecbrazil.serviceftpcliente.model;
 
 import br.itecbrazil.serviceftpcliente.MainServiceFTPCliente;
+import br.itecbrazil.serviceftpcliente.enums.EnumTipoArquivo;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.MalformedURLException;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.logging.Level;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
@@ -76,6 +81,7 @@ public class ThreadRetorno implements Runnable {
                     String conteudo = inputStreamToString(resEntity.getContent());
                     String nomeArquivo = response.getFirstHeader("Content-Disposition").getValue().split("=")[1];
                     escreverArquivosNoDiretorioPassadoPorParametro(conteudo, MainServiceFTPCliente.getConfiguracaoGeral().getDiretorioDeRetorno(), nomeArquivo);
+                    atualizarDadoDeEnvio(nomeArquivo);
                 }else{  
                     logger.info("Falha na busca do arquivo: Código: "+response.getStatusLine().getStatusCode()+" "
                             + "Content-Disposition "+response.getFirstHeader("Content-Disposition"));
@@ -143,6 +149,23 @@ public class ThreadRetorno implements Runnable {
         }
 
         return total.toString();
+    }
+
+    private void atualizarDadoDeEnvio(String nomeArquivo) {
+         ArquivoDao arquivoDao = new ArquivoDao();
+        try {
+            
+            ArrayList<Arquivo> arquivosRetornados = (ArrayList<Arquivo>) arquivoDao.getArquivos(EnumTipoArquivo.Retorno.getTipoDoArquivo());
+            Arquivo arquivoInserido = new Arquivo(EnumTipoArquivo.Retorno.getTipoDoArquivo(), nomeArquivo, new Date());
+            arquivosRetornados.add(arquivoInserido);
+            arquivoDao.save(EnumTipoArquivo.Retorno.getTipoDoArquivo(), arquivosRetornados);
+            logger.info("Arquivo"+nomeArquivo+" retornado gravado com sucesso. Thread: " + Thread.currentThread().getName());
+            
+        } catch (FileNotFoundException ex) {
+            java.util.logging.Logger.getLogger(ThreadEnvio.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            java.util.logging.Logger.getLogger(ThreadEnvio.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
 }
