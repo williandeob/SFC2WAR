@@ -36,7 +36,7 @@ public class ViewHome extends javax.swing.JFrame {
         
         panelConfigLocalDiretorios = new PanelConfigLocalDiretorios();
         panelConfigServidoresFTPs = new PanelConfigServidoresFTPs();
-        panelAuditoria = new PanelAuditoria();
+        
         ScheduleEngine.prepararEIniciarScheduler();
         controller.rodarServicoEmBackGround();
     }
@@ -161,7 +161,8 @@ public class ViewHome extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem_servidorActionPerformed
 
     private void jMenuItem_auditoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem_auditoriaActionPerformed
-      getController().remontarMenu(panelAuditoria);
+        panelAuditoria = new PanelAuditoria();
+        getController().remontarMenu(panelAuditoria);
     }//GEN-LAST:event_jMenuItem_auditoriaActionPerformed
 
     /**

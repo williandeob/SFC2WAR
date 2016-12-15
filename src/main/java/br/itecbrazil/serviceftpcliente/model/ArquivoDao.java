@@ -10,12 +10,14 @@ import br.itecbrazil.serviceftpcliente.enums.EnumDiretorio;
 import br.itecbrazil.serviceftpcliente.enums.EnumTipoArquivo;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.reflect.TypeToken;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -58,7 +60,8 @@ public class ArquivoDao {
         File arquivoDeEnvio = new File(EnumDiretorio.Configuracao.getDiretorio().concat(File.separator).concat(EnumArquivos.Envio.getNomeDoArquivo()));
         FileReader fr = new FileReader(arquivoDeEnvio);
         Gson gson = new Gson();
-        ArrayList<Arquivo> arquivosEnviados = gson.fromJson(fr, ArrayList.class);
+        Type listType = new TypeToken<List<Arquivo>>() {}.getType();
+        ArrayList<Arquivo> arquivosEnviados = gson.fromJson(fr, listType);
         return arquivosEnviados;
     }
 
@@ -66,7 +69,8 @@ public class ArquivoDao {
         File arquivoDeRetorno = new File(EnumDiretorio.Configuracao.getDiretorio().concat(File.separator).concat(EnumArquivos.Retorno.getNomeDoArquivo()));
         FileReader fr = new FileReader(arquivoDeRetorno);
         Gson gson = new Gson();
-        ArrayList<Arquivo> arquivosEnviados = gson.fromJson(fr, ArrayList.class);
+        Type listType = new TypeToken<List<Arquivo>>() {}.getType();
+        ArrayList<Arquivo> arquivosEnviados = gson.fromJson(fr, listType);
         return arquivosEnviados;
     }
 
