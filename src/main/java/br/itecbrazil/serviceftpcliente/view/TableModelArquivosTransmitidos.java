@@ -63,4 +63,9 @@ public class TableModelArquivosTransmitidos extends DefaultTableModel {
         }
     }
     
+    @Override
+    public boolean isCellEditable(int rowIndex,int columnIndex){
+       return false;
+    }
+    
 }

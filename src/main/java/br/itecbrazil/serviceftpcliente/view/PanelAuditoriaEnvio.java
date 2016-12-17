@@ -8,11 +8,18 @@ package br.itecbrazil.serviceftpcliente.view;
 import br.itecbrazil.serviceftpcliente.enums.EnumTipoArquivo;
 import br.itecbrazil.serviceftpcliente.model.Arquivo;
 import br.itecbrazil.serviceftpcliente.model.ArquivoDao;
+import java.awt.Color;
+import java.awt.Font;
 import java.io.FileNotFoundException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.table.JTableHeader;
+import javax.swing.table.TableColumn;
 
 /**
  *
@@ -39,12 +46,48 @@ private List<Arquivo> listaDeArquivosEnviados;
 
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
+        jLabel1_pesquisa_nome = new javax.swing.JLabel();
+        jLabel1_pesquisa_data = new javax.swing.JLabel();
+        jTextField1_pesquisa_nome = new javax.swing.JTextField();
+        jButton1_pesquisa = new javax.swing.JButton();
+        jTextField_pesquisar_data = new javax.swing.JTextField();
+        try{
+            javax.swing.text.MaskFormatter data= new javax.swing.text.MaskFormatter("##/##/####");
+            jTextField_pesquisar_data = new javax.swing.JFormattedTextField(data);
+        }
+        catch (Exception e){
+        }
 
-        setBackground(new java.awt.Color(255, 255, 255));
+        setBackground(new java.awt.Color(204, 204, 204));
 
         jTable1.setModel(new TableModelArquivosTransmitidos
             (getListaDeArquivosEnviados()));
         jScrollPane1.setViewportView(jTable1);
+
+        jLabel1_pesquisa_nome.setFont(new java.awt.Font("Verdana", 1, 12)); // NOI18N
+        jLabel1_pesquisa_nome.setText("Nome do arquivo:");
+
+        jLabel1_pesquisa_data.setFont(new java.awt.Font("Verdana", 1, 12)); // NOI18N
+        jLabel1_pesquisa_data.setText("Data de envio:");
+
+        jTextField1_pesquisa_nome.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
+        jTextField1_pesquisa_nome.setToolTipText("Pesquisar pelo nome do arquivo");
+
+        jButton1_pesquisa.setBackground(new java.awt.Color(255, 255, 255));
+        jButton1_pesquisa.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
+        jButton1_pesquisa.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ic_pesquisar.png"))); // NOI18N
+        jButton1_pesquisa.setText("Pesquisar");
+        jButton1_pesquisa.setToolTipText("");
+        jButton1_pesquisa.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jButton1_pesquisa.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1_pesquisaActionPerformed(evt);
+            }
+        });
+
+        jTextField_pesquisar_data.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
+        jTextField_pesquisar_data.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        jTextField_pesquisar_data.setToolTipText("Pesquisar arquivo de envio pela data");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -52,17 +95,91 @@ private List<Arquivo> listaDeArquivosEnviados;
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 660, Short.MAX_VALUE)
-                .addContainerGap())
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jScrollPane1)
+                        .addContainerGap())
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel1_pesquisa_nome)
+                            .addComponent(jTextField1_pesquisa_nome, javax.swing.GroupLayout.PREFERRED_SIZE, 366, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel1_pesquisa_data)
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jTextField_pesquisar_data, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(23, 23, 23)
+                                .addComponent(jButton1_pesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(10, 10, 10))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(101, 101, 101)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 440, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(20, 20, 20)
+                        .addComponent(jLabel1_pesquisa_nome))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jLabel1_pesquisa_data)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jTextField1_pesquisa_nome, javax.swing.GroupLayout.DEFAULT_SIZE, 37, Short.MAX_VALUE)
+                    .addComponent(jButton1_pesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                    .addComponent(jTextField_pesquisar_data))
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 444, Short.MAX_VALUE)
                 .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jButton1_pesquisaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1_pesquisaActionPerformed
+        setListaDeArquivosEnviados();
+        if(!"".equals(jTextField1_pesquisa_nome.getText().trim()) && "  /  /    ".equals(jTextField_pesquisar_data.getText())){
+            
+            for(int i = 0; i < listaDeArquivosEnviados.size(); i++){
+                 if(!jTextField1_pesquisa_nome.getText().trim().equals(listaDeArquivosEnviados.get(i).getNome())){
+                    listaDeArquivosEnviados.remove(i);
+                    i--;
+                }
+            }
+        }else if("".equals(jTextField1_pesquisa_nome.getText().trim()) && !"  /  /    ".equals(jTextField_pesquisar_data.getText())){
+            for(int i = 0; i < listaDeArquivosEnviados.size(); i++){
+                try {
+                    SimpleDateFormat parse = new SimpleDateFormat("dd/MM/yyyy");
+                    Date date = parse.parse(jTextField_pesquisar_data.getText());
+                    Date dataJaRegistrada = (Date) listaDeArquivosEnviados.get(i).getDataDeTransmissao().clone();
+                    dataJaRegistrada.setHours(0);dataJaRegistrada.setMinutes(0);dataJaRegistrada.setSeconds(0);
+                    if(!dataJaRegistrada.equals(date)){
+                        listaDeArquivosEnviados.remove(i);
+                        i--;
+                    }
+                } catch (ParseException ex) {
+                    Logger.getLogger(PanelAuditoriaEnvio.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        }else if (!"".equals(jTextField1_pesquisa_nome.getText().trim()) && !"  /  /    ".equals(jTextField_pesquisar_data.getText())){
+           for(int i = 0; i < listaDeArquivosEnviados.size(); i++){
+                try {
+                    SimpleDateFormat parse = new SimpleDateFormat("dd/MM/yyyy");
+                    Date date = parse.parse(jTextField_pesquisar_data.getText());
+                    Date dataJaRegistrada = (Date) listaDeArquivosEnviados.get(i).getDataDeTransmissao().clone();
+                    dataJaRegistrada.setHours(0);dataJaRegistrada.setMinutes(0);dataJaRegistrada.setSeconds(0);
+                    
+                    if(!dataJaRegistrada.equals(date) || !jTextField1_pesquisa_nome.getText().trim().equals(listaDeArquivosEnviados.get(i).getNome())){
+                        listaDeArquivosEnviados.remove(listaDeArquivosEnviados.get(i));
+                        i--;
+                    }
+                } catch (ParseException ex) {
+                    Logger.getLogger(PanelAuditoriaEnvio.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        }
+        
+        jTable1.setModel(new TableModelArquivosTransmitidos(getListaDeArquivosEnviados()));
+    }//GEN-LAST:event_jButton1_pesquisaActionPerformed
 
     public List<Arquivo> getListaDeArquivosEnviados() {
         return listaDeArquivosEnviados;
@@ -81,12 +198,44 @@ private List<Arquivo> listaDeArquivosEnviados;
     }
 
     private void buildView() {
+        jTable1.setFont(new Font("Verdana",Font.PLAIN, 12));
+        jTable1.setForeground(Color.WHITE);
+        jTable1.setBackground(Color.BLUE);
+        jTable1.setRowHeight(35);
         
+        jTable1.setPreferredScrollableViewportSize(jScrollPane1.getPreferredSize());
+        jTable1.setFillsViewportHeight(true);
+        
+        JTableHeader header = jTable1.getTableHeader();
+        header.setFont(new Font("Verdana",Font.BOLD, 12));
+        header.setBackground(Color.WHITE);
+        header.setForeground(Color.BLUE);
+        
+        TableColumn column = null;
+        for(int col = 0; col<3; col++){
+             column = jTable1.getColumnModel().getColumn(col);
+            switch (col) {
+                case 0:
+                    column.setPreferredWidth((jTable1.getWidth()/5) * 2);
+                    break;
+                case 2:
+                    column.setPreferredWidth((jTable1.getWidth()/5) * 2);
+                    break;
+                default:
+                    column.setPreferredWidth((jTable1.getWidth()/5));
+                    break;
+            }
+        }
     }
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButton1_pesquisa;
+    private javax.swing.JLabel jLabel1_pesquisa_data;
+    private javax.swing.JLabel jLabel1_pesquisa_nome;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
+    private javax.swing.JTextField jTextField1_pesquisa_nome;
+    private javax.swing.JTextField jTextField_pesquisar_data;
     // End of variables declaration//GEN-END:variables
 }
