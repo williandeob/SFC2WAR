@@ -20,6 +20,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.table.JTableHeader;
 import javax.swing.table.TableColumn;
+import javax.swing.text.MaskFormatter;
 
 /**
  *
@@ -50,13 +51,10 @@ private List<Arquivo> listaDeArquivosEnviados;
         jLabel1_pesquisa_data = new javax.swing.JLabel();
         jTextField1_pesquisa_nome = new javax.swing.JTextField();
         jButton1_pesquisa = new javax.swing.JButton();
-        jTextField_pesquisar_data = new javax.swing.JTextField();
         try{
-            javax.swing.text.MaskFormatter data= new javax.swing.text.MaskFormatter("##/##/####");
-            jTextField_pesquisar_data = new javax.swing.JFormattedTextField(data);
-        }
-        catch (Exception e){
-        }
+            MaskFormatter maskDt = new MaskFormatter("##/##/####");
+            jTextField_pesquisar_data = new javax.swing.JFormattedTextField(maskDt);
+        }catch(ParseException ex){}
 
         setBackground(new java.awt.Color(204, 204, 204));
 
@@ -85,9 +83,13 @@ private List<Arquivo> listaDeArquivosEnviados;
             }
         });
 
-        jTextField_pesquisar_data.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
         jTextField_pesquisar_data.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        jTextField_pesquisar_data.setToolTipText("Pesquisar arquivo de envio pela data");
+        jTextField_pesquisar_data.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
+        jTextField_pesquisar_data.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                jTextField_pesquisar_dataFocusLost(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -103,16 +105,16 @@ private List<Arquivo> listaDeArquivosEnviados;
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel1_pesquisa_nome)
                             .addComponent(jTextField1_pesquisa_nome, javax.swing.GroupLayout.PREFERRED_SIZE, 366, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel1_pesquisa_data)
-                                .addGap(0, 0, Short.MAX_VALUE))
+                                .addGap(31, 31, 31)
+                                .addComponent(jLabel1_pesquisa_data))
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jTextField_pesquisar_data, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(23, 23, 23)
-                                .addComponent(jButton1_pesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(10, 10, 10))))
+                                .addGap(18, 18, 18)
+                                .addComponent(jTextField_pesquisar_data, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(18, 18, 18)
+                        .addComponent(jButton1_pesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -181,6 +183,12 @@ private List<Arquivo> listaDeArquivosEnviados;
         jTable1.setModel(new TableModelArquivosTransmitidos(getListaDeArquivosEnviados()));
     }//GEN-LAST:event_jButton1_pesquisaActionPerformed
 
+    private void jTextField_pesquisar_dataFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextField_pesquisar_dataFocusLost
+        if("  /  /    ".equals(jTextField_pesquisar_data.getText())){
+            jTextField_pesquisar_data.setText("");
+        }
+    }//GEN-LAST:event_jTextField_pesquisar_dataFocusLost
+
     public List<Arquivo> getListaDeArquivosEnviados() {
         return listaDeArquivosEnviados;
     }
@@ -236,6 +244,6 @@ private List<Arquivo> listaDeArquivosEnviados;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
     private javax.swing.JTextField jTextField1_pesquisa_nome;
-    private javax.swing.JTextField jTextField_pesquisar_data;
+    private javax.swing.JFormattedTextField jTextField_pesquisar_data;
     // End of variables declaration//GEN-END:variables
 }

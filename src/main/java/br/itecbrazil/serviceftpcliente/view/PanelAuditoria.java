@@ -5,6 +5,8 @@
  */
 package br.itecbrazil.serviceftpcliente.view;
 
+import java.awt.Color;
+
 /**
  *
  * @author willian
@@ -75,10 +77,10 @@ public class PanelAuditoria extends javax.swing.JPanel {
     private void criarTabs() {
         PanelAuditoriaEnvio panelEnvio = new PanelAuditoriaEnvio();
         PanelAuditoriaRetorno panelRetorno = new PanelAuditoriaRetorno();
-        jTabbedPanel_abas.addTab("Arquivos de envio", null, panelEnvio,
-                  "Auditar arquivos enviados");
-        jTabbedPanel_abas.addTab("Arquivos de retorno", null, panelRetorno,
-                  "Auditar arquivos retornados");
+        jTabbedPanel_abas.addTab("Arquivos de envio", null, panelEnvio, "Auditar arquivos enviados");
+        jTabbedPanel_abas.addTab("Arquivos de retorno", null, panelRetorno, "Auditar arquivos retornados");
+        jTabbedPanel_abas.setBackgroundAt(0, new Color(204,204,204));
+        jTabbedPanel_abas.setBackgroundAt(1, new Color(204,204,204));
     }
 
 }
