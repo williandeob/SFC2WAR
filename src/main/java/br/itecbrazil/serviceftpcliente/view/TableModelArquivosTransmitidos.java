@@ -51,7 +51,10 @@ public class TableModelArquivosTransmitidos extends DefaultTableModel {
                 SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
                 return sdf.format(arquivo.getDataDeTransmissao());
             case 2:
-                return "Enviado com sucesso";
+                if(arquivo.getTipo() == 0)
+                    return "Enviado com sucesso";
+                else
+                    return "Retornado com sucesso";
             default:
                 return "";
         }
